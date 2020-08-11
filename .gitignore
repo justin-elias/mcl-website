@@ -1,0 +1,40 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/out
+
+# misc
+.DS_Store
+.env.development.local
+.env.test.local
+.env.production.local
+.env.build
+.env.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# package
+/dist
+
+/.firebase
+
+# IDE
+/.idea
+
+/.next
+
+
+.now
+.graphqlconfig
+*.graphql
+.vercel
+/src/Scripts/ScratchScripts/

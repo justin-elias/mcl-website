@@ -1,0 +1,40 @@
+name: Bump version
+on:
+  push:
+    branches:
+      - bump-version
+    paths-ignore:
+      - 'package.json'
+      - 'CHANGELOG.md'
+      - 'README.md'
+jobs:
+  ESLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run lint
+  build-bump-version:
+    needs: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: 'chore(bump-version): {version}'
+  auto-pull-request:
+    needs: [ESLint, build-bump-version]
+    name: PullRequestAction
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@1.0.6
+        if: github.actor == 'justin-elias'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN }}
+          PULL_REQUEST_BRANCH: "master"

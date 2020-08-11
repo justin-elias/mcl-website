@@ -1,0 +1,20 @@
+name: automerge
+on:
+  pull_request:
+    branches-ignore:
+      - bump-version
+    on:
+      check_suite:
+        types: [completed]
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
+        if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]' || github.actor == 'justin-elias'
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_RETRY_SLEEP: "30000"
+          MERGE_LABELS: ""
+          UPDATE_LABELS: ""
