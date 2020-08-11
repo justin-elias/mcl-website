@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import {AppBar, Button, Container, Hidden, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Button, Container, Hidden, Toolbar} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 // @ts-ignore
 import FacebookIcon from "src/assets/images/FindUs-FB-RGB-BRC-Site-500.svg"
 import {container} from "../assets/globalStyle";
+// @ts-ignore
 import Logo from "../assets/images/mclLogo.svg";
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
     title?: string
 }
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles(() => ({
     appBar: {
         display: "flex",
         border: "0",
