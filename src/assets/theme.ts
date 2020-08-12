@@ -2,8 +2,8 @@ import {createMuiTheme, responsiveFontSizes} from "@material-ui/core/styles";
 import {blueGrey, red} from "@material-ui/core/colors";
 
 // Brand Palette
-export const primaryColor = "#406d7f";
-export const secondaryColor = "#bbdcdd"
+export const primaryColor = "#B92D00";
+export const secondaryColor = "#ffffff"
 export const hoverGray = blueGrey.A400;
 export const warningColor = "#ff9800";
 export const dangerColor = "#f44336";
@@ -17,14 +17,14 @@ const themeBase = createMuiTheme({
     palette: {
         primary: {
             main: primaryColor,
-            light: "#6f9bae",
-            dark: "#0e4253",
+            light: "#f36031",
+            dark: "#820000",
             contrastText: "#fff"
         },
         secondary: {
             main: secondaryColor,
-            light: "#eeffff",
-            dark: "#8baaab",
+            light: "#ffffff",
+            dark: "#ffffff",
             contrastText: "#333"
         },
         error: {

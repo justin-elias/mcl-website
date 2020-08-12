@@ -1,37 +1,37 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
+import React from 'react'
 import Head from 'next/head'
-import {AppBar, Button, Container, Hidden, Toolbar} from "@material-ui/core";
+import {AppBar, Button, Container, Fab, Theme, Toolbar, useScrollTrigger, Zoom} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 // @ts-ignore
 import FacebookIcon from "src/assets/images/FindUs-FB-RGB-BRC-Site-500.svg"
 import {container} from "../assets/globalStyle";
 // @ts-ignore
-import Logo from "../assets/images/mclLogo.svg";
+import Logo from "../assets/images/mclLogo.png";
+// @ts-ignore
+import Hero from "../assets/images/heroImg.jpg"
+import {MclAppProps} from "../index";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-type Props = {
-    children?: ReactNode
-    title?: string
-}
-
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme: Theme) => ({
+    rootContainer: {
+        maxWidth: "1400px",
+        margin: "auto"
+    },
     appBar: {
         display: "flex",
         border: "0",
-        borderRadius: "3px",
+        borderRadius: "0px",
         padding: "0 0",
         marginBottom: "20px",
-        color: "#555",
         width: "100%",
-        backgroundColor: "#fff",
-        boxShadow: "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)",
+        backgroundColor: theme.palette.primary.main,
         transition: "all 150ms ease 0s",
         alignItems: "center",
         flexFlow: "row nowrap",
         justifyContent: "flex-start",
         position: "relative",
         zIndex: "unset",
-        height: "4rem"
+        height: "5.625rem"
     },
     fbIcon: {
         width: "10rem",
@@ -42,18 +42,62 @@ const useStyle = makeStyles(() => ({
         width: "100%",
         margin: "auto"
     },
-    logo: {
-        width: "10rem",
-        margin: "auto"
+    logoButton: {
+        position: "relative",
+        marginTop: "-6.85rem",
+        [theme.breakpoints.down("sm")]: {
+            marginTop: "-7rem",
+        }
     },
-    smallLogo: {
-        width: "5rem",
-        margin: "auto"
+    logo: {
+        width: "9.375rem",
+        [theme.breakpoints.down("sm")]: {
+            width: "4.5rem",
+        }
+    },
+
+    hero: {
+        width: "100%",
+        marginTop: "-6.1rem"
+
+    },
+    scrollToTop: {
+        position: 'fixed',
+        bottom: theme.spacing(2),
+        right: theme.spacing(2),
     },
     container
 }))
 
-const Layout = ({ children, title }: Props) => {
+
+const ScrollTop = (props: MclAppProps) => {
+    const { children } = props;
+    const classes = useStyle();
+
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 100,
+    });
+
+    const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const anchor = (event.currentTarget.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+        if (anchor) {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
+
+    return (
+        <Zoom in={trigger}>
+            <div onClick={handleClick} role="presentation" className={classes.scrollToTop}>
+                {children}
+            </div>
+        </Zoom>
+    );
+}
+
+const Layout = (props : MclAppProps) => {
+    const { children, title } = props
     const classes = useStyle();
 
     return (
@@ -61,32 +105,33 @@ const Layout = ({ children, title }: Props) => {
         <Head>
             <title>{title}</title>
         </Head>
-        <header>
-            <AppBar className={classes.appBar}>
-                <Toolbar>
-                    <Link href="/">
-                        <a>Home</a>
-                    </Link>
-                </Toolbar>
-            </AppBar>
-        </header>
-        <Container className={classes.container}>
-            <Hidden smDown>
-                <img src={Logo} alt={"Robert A. Ellerd Detachment"} className={classes.logo}/>
-            </Hidden>
-            <Hidden mdUp>
-                <img src={Logo} alt={"Robert A. Ellerd Detachment"} className={classes.smallLogo}/>
-            </Hidden>
-        </Container>
-            {children}
-        <footer>
-            <hr/>
-            <Container className={classes.footer}>
-                <Button href={"https://www.facebook.com/RobertAEllerdDetachment"} className={classes.fbIcon}>
-                    <img src={FacebookIcon} alt={"Facebook Button"} aria-label={"Facebook Button"} className={classes.fbIcon}/>
+        <div className={classes.rootContainer}>
+            <header>
+                <AppBar className={classes.appBar}>
+                    <Toolbar id="back-to-top-anchor">
+
+                    </Toolbar>
+                </AppBar>
+                <Button href={"/"} className={classes.logoButton}>
+                    <img src={Logo} alt={"Robert A. Ellerd Detachment"} className={classes.logo}/>
                 </Button>
-            </Container>
-        </footer>
+            </header>
+            <img src={Hero} className={classes.hero} alt={"Close up of Iwo Jima sculpture"}/>
+            {children}
+            <footer>
+                <hr/>
+                <Container className={classes.footer}>
+                    <Button href={"https://www.facebook.com/RobertAEllerdDetachment"} className={classes.fbIcon}>
+                        <img src={FacebookIcon} alt={"Facebook Button"} aria-label={"Facebook Button"} className={classes.fbIcon}/>
+                    </Button>
+                </Container>
+            </footer>
+        </div>
+        <ScrollTop {...props}>
+            <Fab color="primary" size="large" aria-label="scroll back to top">
+                <KeyboardArrowUpIcon />
+            </Fab>
+        </ScrollTop>
     </React.Fragment>
     );
 }
