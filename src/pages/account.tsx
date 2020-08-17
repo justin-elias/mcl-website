@@ -4,6 +4,7 @@ import {Container, Typography} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles";
 import {container} from "../assets/globalStyle";
 import {MclAppProps} from "../index";
+import Member from "../components/Member/Member";
 
 const useStyle = makeStyles(() => ({
     mainElement: {
@@ -12,23 +13,20 @@ const useStyle = makeStyles(() => ({
     }
 }))
 
-const metaDescription = "Welcome to the Robert A. Ellerd Detachment of the Marine Corps League."
-const index = (props: MclAppProps) => {
+const metaDataDescription = "View your MCL Detachment 1050 member account";
+const account = (props: MclAppProps) => {
     const classes = useStyle();
-    const { ...rest } = props
+    const {user, ...rest} = props
 
     return (
         <React.Fragment>
-            <Layout title={"Home | Gallatin Valley MCL"} metaDescription={metaDescription} {...rest} hero>
-
+            <Layout title={"Account | Gallatin Valley MCL"} metaDescription={metaDataDescription} {...rest} >
                 <Container className={classes.mainElement}>
-                    <Typography variant="h1" align={"center"}>Excuse the Mess</Typography>
-                    <Typography variant="body1" align={"center"}> We are setting up our new website. We should be back online
-                        by August 17th, 2020</Typography>
+                    <Member {...props} />
                 </Container>
             </Layout>
         </React.Fragment>
-    );
+    )
 }
 
-export default index;
+export default account;

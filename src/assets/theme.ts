@@ -15,6 +15,9 @@ export const grayColor = "#999999";
 // Create a theme instance.
 const themeBase = createMuiTheme({
     palette: {
+        text: {
+            primary: "#333"
+        },
         primary: {
             main: primaryColor,
             light: "#f36031",
@@ -35,6 +38,7 @@ const themeBase = createMuiTheme({
         },
     },
     typography: {
+
         fontFamily: ["Lato", "Helvetica", "Arial", "Lucida", "sans-serif"].join(","),
         h1: {
             fontFamily: ["Asap", "sans-serif"].join(","),

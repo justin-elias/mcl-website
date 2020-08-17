@@ -6,6 +6,7 @@ import * as Sentry from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
 import getConfig from "next/config";
 import {MclAppProps} from "../index";
+import {useUser} from "../utils/auth/useUser";
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     const config = getConfig()
@@ -29,7 +30,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export default function App(props: MclAppProps){
-    const { Component, pageProps, err, title } = props;
+    const { Component, pageProps, err } = props;
+    const {user, logout} = useUser();
 
     return(
         <React.Fragment>
@@ -39,11 +41,10 @@ export default function App(props: MclAppProps){
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                 />
-                <title>{title}</title>
                 <link href="https://fonts.googleapis.com/css2?family=Asap:wght@600;700&family=Lato:ital,wght@0,400;0,700;1,400&family=Merriweather+Sans:wght@800&display=swap" rel="stylesheet"/>
             </Head>
             <ThemeProvider theme={theme}>
-                <Component {...pageProps} err={err}/>
+                <Component {...pageProps} err={err} user={user} logout={() => logout}/>
             </ThemeProvider>
         </React.Fragment>
     );

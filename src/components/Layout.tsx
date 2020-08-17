@@ -9,7 +9,7 @@ import {container} from "../assets/globalStyle";
 import Logo from "../assets/images/mclLogo.png";
 // @ts-ignore
 import Hero from "../assets/images/heroImg.jpg"
-import {MclAppProps} from "../index";
+import {LayoutProps, MclAppProps} from "../index";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const useStyle = makeStyles((theme: Theme) => ({
@@ -96,14 +96,16 @@ const ScrollTop = (props: MclAppProps) => {
     );
 }
 
-const Layout = (props : MclAppProps) => {
-    const { children, title } = props
+const Layout = (props : LayoutProps) => {
+    const { children, title, metaDescription, hero } = props
     const classes = useStyle();
 
+    const showHero = hero ? <img src={Hero} className={classes.hero} alt={"Close up of Iwo Jima sculpture"}/> : null;
     return (
     <React.Fragment>
         <Head>
             <title>{title}</title>
+            <meta name="description" content={metaDescription}/>
         </Head>
         <div className={classes.rootContainer}>
             <header>
@@ -116,7 +118,7 @@ const Layout = (props : MclAppProps) => {
                     <img src={Logo} alt={"Robert A. Ellerd Detachment"} className={classes.logo}/>
                 </Button>
             </header>
-            <img src={Hero} className={classes.hero} alt={"Close up of Iwo Jima sculpture"}/>
+            {showHero}
             {children}
             <footer>
                 <hr/>
