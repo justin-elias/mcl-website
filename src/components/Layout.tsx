@@ -70,7 +70,7 @@ const useStyle = makeStyles((theme: Theme) => ({
 }))
 
 
-const ScrollTop = (props: MclAppProps) => {
+const ScrollTop = (props: MclAppProps) =>{
     const { children } = props;
     const classes = useStyle();
 
