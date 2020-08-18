@@ -2,25 +2,30 @@ import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Layout from "../components/Layout";
 import {MclAppProps, formFieldProps, formRadioFieldProps, FormOptions} from "../index";
-import {Button, Card, CardContent, Typography, Link} from "@material-ui/core";
+import {Button, Card, CardContent, Typography, Link, Hidden, MobileStepper} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {card} from "../assets/globalStyle";
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import theme from "../assets/theme";
 import TextComponent from "../components/ApplicationFormComponents/TextComponent";
 import RadioComponent from "../components/ApplicationFormComponents/RadioComponent";
 import CertComponent from "../components/ApplicationFormComponents/CertComponent";
 import OathComponent from "../components/ApplicationFormComponents/OathComponent";
 import SubmitComponent from "../components/ApplicationFormComponents/SubmitComponent";
 
-const useStyles =makeStyles(() => ({
+const useStyles =makeStyles((theme) => ({
 
     formCard: {
         ...card,
         width: "60%",
-        margin: "2% 20%"
+        margin: "2% 20%",
+        [theme.breakpoints.down("sm")]: {
+
+            width: "100%",
+            margin: "1rem 0"
+
+        },
     },
     inputField: {
         margin: theme.spacing(2)
@@ -29,8 +34,17 @@ const useStyles =makeStyles(() => ({
         margin: "1rem"
     },
     header: {
-        marginTop: "-5rem"
-    }
+        marginTop: "-5rem",
+        [theme.breakpoints.down("md")]: {
+            marginTop: theme.spacing(1)
+        }
+
+    },
+    root: {
+        width: "30%",
+        flexGrow: 1,
+        margin: "0 35%"
+    },
 }))
 const datePattern = RegExp("^(((0[1-9]|[12][0-9]|3[01])[- /.](0[13578]|1[02])|(0[1-9]|[12][0-9]|30)[- /.](0[469]|11)|(0[1-9]|1\\d|2[0-8])[- /.]02)[- /.]\\d{4}|29[- /.]02[- /.](\\d{2}(0[48]|[2468][048]|[13579][26])|([02468][048]|[1359][26])00))$")
 const metaDescription= "Join the Marine Corps League Detachment and support our mission in the Gallatin Valley"
@@ -336,80 +350,93 @@ export default function memberships(props:MclAppProps) {
             <Layout title={"Join-Renew | Gallatin Valley MCL"} {...rest} metaDescription={metaDescription}>
                 <Typography variant={"h3"} component={"h1"} align={"center"} className={classes.header}>Marine Corps League Membership Form</Typography>
                     <Card className={classes.formCard} variant={"elevation"}>
-                        <Stepper activeStep={activeStep}>
-                            {steps.map((label) => {
-                                const stepProps: { completed?: boolean } = {};
-                                return (
-                                    <Step key={label} {...stepProps}>
-                                        <StepLabel>{label}</StepLabel>
-                                    </Step>
-                                );
-                            })}
-                        </Stepper>
+                        <Hidden lgUp>
+                            <MobileStepper
+                                variant="dots"
+                                steps={steps.length}
+                                position="static"
+                                activeStep={activeStep}
+                                className={classes.root}
+                                backButton
+                                nextButton
+                            />
+                        </Hidden>
+                        <Hidden mdDown>
+                            <Stepper activeStep={activeStep}>
+                                {steps.map((label) => {
+                                    const stepProps: { completed?: boolean } = {};
+                                    return (
+                                        <Step key={label} {...stepProps}>
+                                            <StepLabel>{label}</StepLabel>
+                                        </Step>
+                                    );
+                                })}
+                            </Stepper>
+                        </Hidden>
                         <CardContent>
-                            <div>
-                                {activeStep === steps.length ? (
-                                    <div>
-                                        <Typography variant={"body1"}>
-                                            All steps completed - you&apos;re finished
-                                        </Typography>
-                                        <Button onClick={handleReset}>
-                                            Reset
-                                        </Button>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        {getStepContent(activeStep)!.map((formFields:formFieldProps, index: number) => {
+                                <div>
+                                    {activeStep === steps.length ? (
+                                        <div>
+                                            <Typography variant={"body1"}>
+                                                All steps completed - you&apos;re finished
+                                            </Typography>
+                                            <Button onClick={handleReset}>
+                                                Reset
+                                            </Button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            {getStepContent(activeStep)!.map((formFields:formFieldProps, index: number) => {
 
-                                            if (formFields.type === "text"){
+                                                if (formFields.type === "text"){
 
-                                                return (
-                                                    // @ts-ignore
-                                                    <TextComponent formFields={formFields} key={index} index={index} register={register} values={formValues} errors={errors}/>
-                                                )
-                                            }
-                                            if (formFields.type === "radio"){
-                                                // @ts-ignore
-                                                return formFields.fields.map((field: formRadioFieldProps, index) => {
                                                     return (
                                                         // @ts-ignore
-                                                        <RadioComponent key={index}  fields={field} register={register} currentValue={formValues[field.groupName]}/>
+                                                        <TextComponent formFields={formFields} key={index} index={index} register={register} values={formValues} errors={errors}/>
                                                     )
+                                                }
+                                                if (formFields.type === "radio"){
+                                                    // @ts-ignore
+                                                    return formFields.fields.map((field: formRadioFieldProps, index) => {
+                                                        return (
+                                                            // @ts-ignore
+                                                            <RadioComponent key={index}  fields={field} register={register} currentValue={formValues[field.groupName]}/>
+                                                        )
+                                                })}
+                                                if (formFields.type === "cert"){
+                                                    return <CertComponent register={register} currentValue={""} certified={formValues.certified} radioFields={formFields.radio} key={index}/>
+                                                }
+                                                if (formFields.type === "oath"){
+                                                    return <OathComponent key={index} register={register} affirmed={formValues.oath} memberName={formValues.firstName + " " + formValues.lastName} />
+                                                }
+                                                if (formFields.type === "submit"){
+                                                    // @ts-ignore
+                                                    return <SubmitComponent formValues={formValues} title={formFields.title}/>
+                                                }
+                                                return null
                                             })}
-                                            if (formFields.type === "cert"){
-                                                return <CertComponent register={register} currentValue={""} certified={formValues.certified} radioFields={formFields.radio} key={index}/>
-                                            }
-                                            if (formFields.type === "oath"){
-                                                return <OathComponent key={index} register={register} affirmed={formValues.oath} memberName={formValues.firstName + " " + formValues.lastName} />
-                                            }
-                                            if (formFields.type === "submit"){
-                                                // @ts-ignore
-                                                return <SubmitComponent formValues={formValues} title={formFields.title}/>
-                                            }
-                                            return null
-                                        })}
-                                        <div>
-                                            <br/>
-                                            <Button disabled={activeStep === 0} onClick={handleBack}>
-                                                Back
-                                            </Button>
-                                            {activeStep !== steps.length - 1 ?
-                                            (<Button
-                                                variant="contained"
-                                                color="primary"
-                                                role={"submit"}
-                                                onClick={handleSubmit(handleNext)}
-                                            >Next</Button>) : (
-                                                <Button
-                                                variant="contained"
-                                                color="primary"
-                                                role={"submit"}
-                                                ><Link color={"inherit"} target={"_blank"} href={squareUrl(formValues.appType+formValues.memberType)}>Make Payment</Link></Button>
-                                                )}
+                                            <div>
+                                                <br/>
+                                                <Button disabled={activeStep === 0} onClick={handleBack}>
+                                                    Back
+                                                </Button>
+                                                {activeStep !== steps.length - 1 ?
+                                                (<Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    role={"submit"}
+                                                    onClick={handleSubmit(handleNext)}
+                                                >Next</Button>) : (
+                                                    <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    role={"submit"}
+                                                    ><Link color={"inherit"} target={"_blank"} href={squareUrl(formValues.appType+formValues.memberType)}>Make Payment</Link></Button>
+                                                    )}
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
+                                    )}
+                                </div>
                         </CardContent>
                     </Card>
             </Layout>
