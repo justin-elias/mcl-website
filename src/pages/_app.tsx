@@ -8,26 +8,26 @@ import getConfig from "next/config";
 import {MclAppProps} from "../index";
 import {useUser} from "../utils/auth/useUser";
 
-if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
-    const config = getConfig()
-    const distDir = `${config.serverRuntimeConfig.rootDir}/.next`
-    Sentry.init({
-        enabled: process.env.NODE_ENV === 'production',
-        integrations: [
-            new RewriteFrames({
-                iteratee: (frame) => {
-                    frame.filename = frame.filename!.replace(distDir, 'app:///_next')
-                    return frame
-                },
-            }),
-        ],
-        dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    })
-}
-
-// if (process.env.NODE_ENV === "production") {
-//     Sentry.init({dsn: process.env.NEXT_PUBLIC_SENTRY_DSN});
+// if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+//     const config = getConfig()
+//     const distDir = `${config.serverRuntimeConfig.rootDir}/.next`
+//     Sentry.init({
+//         enabled: process.env.NODE_ENV === 'production',
+//         integrations: [
+//             new RewriteFrames({
+//                 iteratee: (frame) => {
+//                     frame.filename = frame.filename!.replace(distDir, 'app:///_next')
+//                     return frame
+//                 },
+//             }),
+//         ],
+//         dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+//     })
 // }
+
+if (process.env.NODE_ENV === "production") {
+    Sentry.init({dsn: process.env.NEXT_PUBLIC_SENTRY_DSN});
+}
 
 export default function App(props: MclAppProps){
     const { Component, pageProps, err } = props;
