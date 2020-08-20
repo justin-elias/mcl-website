@@ -49,7 +49,7 @@ const index = (props: MclAppProps) => {
                         </Hidden>
                     </GridContainer>
                     <br/>
-                    <GridContainer justify={"center"}>
+                    <GridContainer justify={"center"} spacing={6}>
                         <GridItem>
                             <Typography variant={"h3"}>Meeting Info</Typography>
                             <br/>
