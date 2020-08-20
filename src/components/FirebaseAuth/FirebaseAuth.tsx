@@ -42,7 +42,7 @@ const FirebaseAuth = (props: AuthProps) => {
                 // the link in a mobile app if it is installed.
                 emailLinkSignIn: function() {
                     return {
-                        url: process.env.WEBSITE_URL + "/login",
+                        url: process.env.NEXT_PUBLIC_WEBSITE_URL + "/login",
                         // Always true for email link sign-in.
                         handleCodeInApp: true,
                     };
