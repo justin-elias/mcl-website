@@ -391,8 +391,10 @@ export default function memberships(props:MclAppProps) {
             formValues[key] = data[key];
         })
         setFormValues(formValues);
+        const updateValues = formValues;
+        delete updateValues.appType
         try {
-            await updateUser(formValues, user)
+            await updateUser(updateValues, user)
         }catch (error){
             Sentry.captureException(error)
         }
@@ -414,9 +416,13 @@ export default function memberships(props:MclAppProps) {
     useEffect(() => {
         if (formValues.appType === "new"){
             setSteps(getSteps("new"))
+            formValues.oath = false;
+            formValues.certified = false;
         }
         if (formValues.appType === "renew") {
             setSteps(getSteps("renew"))
+            formValues.oath = true;
+            formValues.certified = true;
         }
     }, [formValues.appType])
     return (
