@@ -481,44 +481,44 @@ export default function memberships(props:MclAppProps) {
                                     </div>
                                 ) : (
                                     <div>
-                                        {getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {
+                                        {/*{getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {*/}
 
-                                            if (formFields.type === "text") {
+                                        {/*    if (formFields.type === "text") {*/}
 
-                                                return (
-                                                    <TextComponent formFields={formFields} key={index} index={index}
-                                                        // @ts-ignore
-                                                                   register={register} values={formValues}
-                                                                   appType={formValues.appType}/>
-                                                )
-                                            }
-                                            if (formFields.type === "radio") {
-                                                // @ts-ignore
-                                                return formFields.fields.map((field: formRadioFieldProps, index) => {
-                                                    return (
-                                                        <RadioComponent key={index} fields={field} register={register}
-                                                            // @ts-ignore
-                                                                        currentValue={formValues[field.groupName]}/>
-                                                    )
-                                                })
-                                            }
-                                            if (formFields.type === "cert" && formValues.appType === "new") {
-                                                return <CertComponent register={register} currentValue={""}
-                                                                      certified={formValues.certified}
-                                                                      radioFields={formFields.radio} key={index}/>
-                                            }
-                                            if (formFields.type === "oath" && formValues.appType === "new") {
-                                                return <OathComponent key={index} register={register}
-                                                                      affirmed={formValues.oath}
-                                                                      memberName={formValues.firstName + " " + formValues.lastName}/>
-                                            }
-                                            if (formFields.type === "submit") {
-                                                // @ts-ignore
-                                                return <SubmitComponent formValues={formValues}
-                                                                        title={formFields.title} key={index}/>
-                                            }
-                                            return null
-                                        })}
+                                        {/*        return (*/}
+                                        {/*            <TextComponent formFields={formFields} key={index} index={index}*/}
+                                        {/*                // @ts-ignore*/}
+                                        {/*                           register={register} values={formValues}*/}
+                                        {/*                           appType={formValues.appType}/>*/}
+                                        {/*        )*/}
+                                        {/*    }*/}
+                                        {/*    if (formFields.type === "radio") {*/}
+                                        {/*        // @ts-ignore*/}
+                                        {/*        return formFields.fields.map((field: formRadioFieldProps, index) => {*/}
+                                        {/*            return (*/}
+                                        {/*                <RadioComponent key={index} fields={field} register={register}*/}
+                                        {/*                    // @ts-ignore*/}
+                                        {/*                                currentValue={formValues[field.groupName]}/>*/}
+                                        {/*            )*/}
+                                        {/*        })*/}
+                                        {/*    }*/}
+                                        {/*    if (formFields.type === "cert" && formValues.appType === "new") {*/}
+                                        {/*        return <CertComponent register={register} currentValue={""}*/}
+                                        {/*                              certified={formValues.certified}*/}
+                                        {/*                              radioFields={formFields.radio} key={index}/>*/}
+                                        {/*    }*/}
+                                        {/*    if (formFields.type === "oath" && formValues.appType === "new") {*/}
+                                        {/*        return <OathComponent key={index} register={register}*/}
+                                        {/*                              affirmed={formValues.oath}*/}
+                                        {/*                              memberName={formValues.firstName + " " + formValues.lastName}/>*/}
+                                        {/*    }*/}
+                                        {/*    if (formFields.type === "submit") {*/}
+                                        {/*        // @ts-ignore*/}
+                                        {/*        return <SubmitComponent formValues={formValues}*/}
+                                        {/*                                title={formFields.title} key={index}/>*/}
+                                        {/*    }*/}
+                                        {/*    return null*/}
+                                        {/*})}*/}
                                         <div>
                                             <br/>
                                             <Button disabled={activeStep === 0} onClick={handleBack}>
