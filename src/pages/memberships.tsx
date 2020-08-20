@@ -152,7 +152,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                     },
                     {
                         name: "mclId",
-                        label: "MCL ID Number(If known)",
+                        label: "MCL ID # (If known)",
                         type: "text",
                         id: name,
                         variant: "filled",
