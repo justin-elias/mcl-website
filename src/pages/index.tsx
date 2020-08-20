@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from '../components/Layout'
-import {Container, Typography} from "@material-ui/core"
+import {Button, Container, Hidden, Typography} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles";
 import {container} from "../assets/globalStyle";
 import {MclAppProps} from "../index";
@@ -12,15 +12,14 @@ import ega from "src/assets/images/ega.jpg"
 const useStyle = makeStyles((theme) => ({
     mainElement: {
         ...container,
-        height: "70vh"
+        height: "auto"
     },
     ega: {
         borderRadius: "0.3rem",
         marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(20)
     }
 }))
-
+const gKey = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJuZCKzltERVMRTCZ7l1uTG_8&key=" + process.env.NEXT_PUBLIC_MAPS_API;
 const metaDescription = "Welcome to the Robert A. Ellerd Detachment of the Marine Corps League."
 const index = (props: MclAppProps) => {
     const classes = useStyle();
@@ -31,7 +30,7 @@ const index = (props: MclAppProps) => {
             <Layout title={"Home | Gallatin Valley MCL"} metaDescription={metaDescription} {...rest} hero>
 
                 <Container className={classes.mainElement}>
-                    <GridContainer>
+                    <GridContainer justify={"space-between"}>
                         <GridItem md={6}>
                             <Typography variant="h1" align={"left"} component={"h2"}>Our Mission</Typography>
                             <Typography variant="body1" align={"left"}>
@@ -40,11 +39,21 @@ const index = (props: MclAppProps) => {
                                 serve Marines, FMF Corpsmen, and FMF Chaplains who wear or who have worn the Eagle, Globe and
                                 Anchor; and foster the ideals of Americanism and patriotic volunteerism.
                             </Typography>
+                            <br/>
+                            <Button color={"primary"} href={"/memberships"} size={"large"} variant={"contained"}>Join Us</Button>
                         </GridItem>
-                        <GridItem>
-                            <img src={ega} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega}/>
-                        </GridItem>
+                        <Hidden smDown>
+                            <GridItem>
+                                <img src={ega} width={"450px"} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega}/>
+                            </GridItem>
+                        </Hidden>
                     </GridContainer>
+                    <br/>
+                    <Typography variant={"h3"}>Meeting Location</Typography>
+                    <br/>
+                    <iframe width="450" height="450" frameBorder="0" style={{border:0}}
+                            src={gKey}
+                            allowFullScreen/>
                 </Container>
             </Layout>
         </React.Fragment>

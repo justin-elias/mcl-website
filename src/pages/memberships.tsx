@@ -346,7 +346,7 @@ export default function memberships(props:MclAppProps) {
         city: "",
         state: "",
         zipCode: "",
-        appType: "new",
+        appType: "renew",
         memberType: "regular",
         dateEnlistCommission: "",
         eas: "",

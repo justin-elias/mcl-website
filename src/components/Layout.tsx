@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import {AppBar, Button, Container, Fab, Theme, Toolbar, useScrollTrigger, Zoom} from "@material-ui/core";
+import {AppBar, Button, Container, Fab, Hidden, Theme, Toolbar, useScrollTrigger, Zoom} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 // @ts-ignore
 import FacebookIcon from "src/assets/images/FindUs-FB-RGB-BRC-Site-500.svg"
@@ -78,7 +78,6 @@ const useStyle = makeStyles((theme: Theme) => ({
     navLink: {
         fontWeight: 700,
         color: "#fff",
-        margin: theme.spacing(2),
         "&:hover": {
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.secondary.contrastText
@@ -130,13 +129,16 @@ const Layout = (props : LayoutProps) => {
                 <nav role="navigation">
                 <AppBar className={classes.appBar}>
                     <Toolbar id="back-to-top-anchor" className={classes.grid}>
-                            <GridContainer alignItems={"flex-end"} className={classes.container} justify={"flex-end"}>
+                            <GridContainer className={classes.container} justify={"flex-end"}>
                                 <GridItem >
                                     <Link href={"/"} passHref>
                                         <Button
                                             className={classes.navLink}
                                         >
-                                            <HomeOutlinedIcon /> <Typography variant={"body1"} >Home</Typography>
+                                            <HomeOutlinedIcon />
+                                            <Hidden xsDown>
+                                                <Typography variant={"body1"} >Home</Typography>
+                                            </Hidden>
                                         </Button>
                                     </Link>
                                 </GridItem>
