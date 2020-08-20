@@ -482,22 +482,17 @@ export default function memberships(props:MclAppProps) {
                                 ) : (
                                     <div>
                                         {getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {
-                                            console.log("cp0")
                                             if (formFields.type === "text") {
-                                                    console.log("cp1")
-                                        {/*        return (*/}
-                                        {/*            <TextComponent formFields={formFields} key={index} index={index}*/}
-                                        {/*                // @ts-ignore*/}
-                                        {/*                           register={register} values={formValues}*/}
-                                        {/*                           appType={formValues.appType}/>*/}
-                                        {/*        )*/}
+                                                return (
+                                                    <TextComponent formFields={formFields} key={index} index={index}
+                                                        // @ts-ignore*/}
+                                                                   register={register} values={formValues}
+                                                                   appType={formValues.appType}/>
+                                                )
                                             }
-                                            console.log("cp2")
                                             if (formFields.type === "radio") {
-                                                console.log("cp3")
                                                 // @ts-ignore
                                                 return formFields.fields.map((field: formRadioFieldProps, index) => {
-                                                    console.log("cp9")
                                                     return (
                                                         <RadioComponent key={index} fields={field} register={register}
                                                             // @ts-ignore*/}
@@ -505,26 +500,21 @@ export default function memberships(props:MclAppProps) {
                                                     )
                                                 })
                                             }
-                                            console.log("cp4")
                                             if (formFields.type === "cert" && formValues.appType === "new") {
-                                                console.log("cp5")
-                                        {/*        return <CertComponent register={register} currentValue={""}*/}
-                                        {/*                              certified={formValues.certified}*/}
-                                        {/*                              radioFields={formFields.radio} key={index}/>*/}
-                                        {/*    }*/}
-                                        {/*    if (formFields.type === "oath" && formValues.appType === "new") {*/}
-                                        {/*        return <OathComponent key={index} register={register}*/}
-                                        {/*                              affirmed={formValues.oath}*/}
-                                        {/*                              memberName={formValues.firstName + " " + formValues.lastName}/>*/}
+                                                return <CertComponent register={register} currentValue={""}
+                                                                      certified={formValues.certified}
+                                                                      radioFields={formFields.radio} key={index}/>
                                             }
-                                            console.log("cp6")
+                                            if (formFields.type === "oath" && formValues.appType === "new") {
+                                                return <OathComponent key={index} register={register}
+                                                                      affirmed={formValues.oath}
+                                                                      memberName={formValues.firstName + " " + formValues.lastName}/>
+                                            }
                                             if (formFields.type === "submit") {
-                                                console.log("cp7")
-                                        {/*        // @ts-ignore*/}
-                                        {/*        return <SubmitComponent formValues={formValues}*/}
-                                        {/*                                title={formFields.title} key={index}/>*/}
+                                                // @ts-ignore
+                                                return <SubmitComponent formValues={formValues}
+                                                                        title={formFields.title} key={index}/>
                                             }
-                                            console.log("cp8")
                                             return null
                                        })}
                                         <div>
