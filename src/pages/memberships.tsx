@@ -1,8 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Layout from "../components/Layout";
 import {MclAppProps, formFieldProps, formRadioFieldProps, FormOptions} from "../index";
-import {Button, Card, CardContent, Typography, Link, Hidden, MobileStepper} from "@material-ui/core";
+import {
+    Button,
+    Card,
+    CardContent,
+    Typography,
+    Hidden,
+    MobileStepper,
+    DialogTitle,
+    Toolbar,
+    IconButton, DialogContent, Dialog
+} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {card} from "../assets/globalStyle";
 import Stepper from '@material-ui/core/Stepper';
@@ -13,6 +23,10 @@ import RadioComponent from "../components/ApplicationFormComponents/RadioCompone
 import CertComponent from "../components/ApplicationFormComponents/CertComponent";
 import OathComponent from "../components/ApplicationFormComponents/OathComponent";
 import SubmitComponent from "../components/ApplicationFormComponents/SubmitComponent";
+import FirebaseAuth from "../components/FirebaseAuth/FirebaseAuth";
+import updateUser from "../utils/auth/updateUser";
+import * as Sentry from "@sentry/node"
+import {Close} from "@material-ui/icons";
 
 const useStyles =makeStyles((theme) => ({
 
@@ -45,16 +59,28 @@ const useStyles =makeStyles((theme) => ({
         flexGrow: 1,
         margin: "0 35%"
     },
+    appBar: {
+        position: "relative",
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.secondary.contrastText
+    },
 }))
 const datePattern = RegExp("^(((0[1-9]|[12][0-9]|3[01])[- /.](0[13578]|1[02])|(0[1-9]|[12][0-9]|30)[- /.](0[469]|11)|(0[1-9]|1\\d|2[0-8])[- /.]02)[- /.]\\d{4}|29[- /.]02[- /.](\\d{2}(0[48]|[2468][048]|[13579][26])|([02468][048]|[1359][26])00))$")
 const metaDescription= "Join the Marine Corps League Detachment and support our mission in the Gallatin Valley"
 
-const getSteps = () => {
-    return ['Application Type', 'Biographical Details', 'Contact Info', 'Certification', 'Oath', 'Submit'];
+const getSteps = (appType: string) => {
+
+    return appType === "new" ? ['Application Type', 'Biographical Details', 'Contact Info', 'Certification', 'Oath', 'Submit'] : ['Application Type', 'Biographical Details', 'Contact Info', 'Submit'];
 }
 // @ts-ignore
-const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
-    switch (step) {
+const getStepContent: (step: number, appType: string) => formFieldProps[] = (step: number, appType) => {
+    let adjustedStep = step;
+    if (appType === "renew"){
+        if (step === 3 || step === 4){
+            adjustedStep = 5
+        }
+    }
+    switch (adjustedStep) {
         case 0:
             return [{
                 type: "radio",
@@ -93,7 +119,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing given-name",
                         autoFocus: true,
                         placeholder:"",
-                        helperText: ""
+                        helperText: "",
+                        hidden: false
                     },
                     {
                         name: "lastName",
@@ -105,7 +132,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing family-name",
                         autoFocus: false,
                         placeholder:"",
-                        helperText: ""
+                        helperText: "",
+                        hidden: false
                     },
                     {
                         name: "dob",
@@ -119,7 +147,23 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing bday",
                         autoFocus: false,
                         placeholder:"mm/dd/yyyy",
-                        helperText: "Please use mm/dd/yyyy format"
+                        helperText: "Please use mm/dd/yyyy format",
+                        hidden: false
+                    },
+                    {
+                        name: "mclId",
+                        label: "MCL ID Number(If known)",
+                        type: "text",
+                        id: name,
+                        variant: "filled",
+                        inputRef: {},
+                        margin: "normal",
+                        required: false,
+                        autoComplete: "",
+                        autoFocus: false,
+                        placeholder:"",
+                        helperText: "",
+                        hidden: false
                     },
                     {
                         name: "dateEnlistCommission",
@@ -133,7 +177,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "",
                         autoFocus: false,
                         placeholder:"mm/dd/yyyy",
-                        helperText: "Please use mm/dd/yyyy format"
+                        helperText: "Please use mm/dd/yyyy format",
+                        hidden: true
                     },
                     {
                         name: "eas",
@@ -147,7 +192,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "",
                         autoFocus: false,
                         placeholder:"mm/dd/yyyy",
-                        helperText: "Please use mm/dd/yyyy format"
+                        helperText: "Please use mm/dd/yyyy format",
+                        hidden: true
 
                     }
                 ]
@@ -169,7 +215,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing street-address",
                         autoFocus: true,
                         placeholder:"",
-                        helperText: ""
+                        helperText: "",
+                        hidden: false
                     },
                     {
                         name: "city",
@@ -183,7 +230,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing address-level2",
                         autoFocus: false,
                         placeholder:"",
-                        helperText: ""
+                        helperText: "",
+                        hidden: false
                     },
                     {
                         name: "state",
@@ -197,7 +245,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing address-level1",
                         autoFocus: false,
                         placeholder:"",
-                        helperText: ""
+                        helperText: "",
+                        hidden: false
                     },
                     {
                         name: "zipCode",
@@ -211,7 +260,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing postal-code",
                         autoFocus: false,
                         placeholder:"12345-6789",
-                        helperText: "Please use 12345-6789 format"
+                        helperText: "Please use 12345-6789 format",
+                        hidden: false
                     },
                     {
                         name: "phone",
@@ -225,7 +275,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                         autoComplete: "billing tel",
                         autoFocus: false,
                         placeholder:"",
-                        helperText: "Please use 555-555-5555 format"
+                        helperText: "Please use 555-555-5555 format",
+                        hidden: false
                     },
                 ]
             }];
@@ -275,7 +326,7 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
                 title: "Unknown step selected",
                 fields: [
                     {
-
+                        hidden: true
                     },
                 ]
             }];
@@ -284,8 +335,8 @@ const getStepContent: (step: number) => formFieldProps[] = (step: number) => {
 
 export default function memberships(props:MclAppProps) {
     const classes = useStyles();
-    const {...rest} = props;
-    const [activeStep, setActiveStep] = React.useState(0);
+    const {user, ...rest} = props;
+    const [activeStep, setActiveStep] = useState(0);
     const [formValues, setFormValues] = useState({
         firstName: "",
         lastName: "",
@@ -301,13 +352,25 @@ export default function memberships(props:MclAppProps) {
         eas: "",
         felony: "",
         certified: false,
-        oath: false
+        oath: false,
+        mclId: ""
     })
-    const steps = getSteps();
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data: FormOptions) => {
-
-        console.log(data)
+    const [steps, setSteps] = useState<string[]>(getSteps("renew"))
+    const [open, setOpen] = useState(false)
+    const { register, handleSubmit} = useForm();
+    const handleClose = () => {
+        setOpen(false);
+        setActiveStep(7);
+    };
+    // @ts-ignore
+    const onSubmit = async (event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        event.preventDefault();
+        try {
+            await updateUser(formValues, user)
+        }catch (error){
+            Sentry.captureException(error)
+        }
+        setOpen(true);
     };
 
     const squareUrl = (choice: string) => {
@@ -320,13 +383,19 @@ export default function memberships(props:MclAppProps) {
                 return "https://checkout.square.site/pay/d5caee920b8b4679bab3164361a627d1"
             case "renewassociate":
                 return "https://checkout.square.site/pay/7979afdf17f74cbaaad812887028d8a5"
+            default:
+                return ""
         }
     }
     const handleNext = (data: FormOptions) => {
-        if (activeStep === steps.length - 1) {
-            handleSubmit(onSubmit);
-        }
+
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+        if (formValues.appType === "renew"){
+            if (activeStep === 3 || activeStep === 4){
+                setActiveStep(5)
+            }
+        }
         // @ts-ignore
         const keys: Array<keyof FormOptions> = Object.keys(data)
         keys.map((key) => {
@@ -334,21 +403,35 @@ export default function memberships(props:MclAppProps) {
             formValues[key] = data[key];
         })
         setFormValues(formValues);
-        console.log(formValues)
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        if (formValues.appType === "renew"){
+            if (activeStep === 3 || activeStep === 4){
+                setActiveStep(2)
+            }
+        }
     };
 
     const handleReset = () => {
         setActiveStep(0);
     };
 
+    useEffect(() => {
+        if (formValues.appType === "new"){
+            setSteps(getSteps("new"))
+        }
+        if (formValues.appType === "renew") {
+            setSteps(getSteps("renew"))
+        }
+    }, [formValues.appType])
     return (
         <React.Fragment>
-            <Layout title={"Join-Renew | Gallatin Valley MCL"} {...rest} metaDescription={metaDescription}>
-                <Typography variant={"h3"} component={"h1"} align={"center"} className={classes.header}>Marine Corps League Membership Form</Typography>
+                <Layout title={"Join-Renew | Gallatin Valley MCL"} {...rest} metaDescription={metaDescription}>
+                    <Typography variant={"h3"} component={"h1"} align={"center"} className={classes.header}>Marine Corps
+                        League Membership Form</Typography>
+                    { user ?
                     <Card className={classes.formCard} variant={"elevation"}>
                         <Hidden lgUp>
                             <MobileStepper
@@ -357,8 +440,8 @@ export default function memberships(props:MclAppProps) {
                                 position="static"
                                 activeStep={activeStep}
                                 className={classes.root}
-                                backButton
-                                nextButton
+                                backButton={null}
+                                nextButton={null}
                             />
                         </Hidden>
                         <Hidden mdDown>
@@ -374,72 +457,113 @@ export default function memberships(props:MclAppProps) {
                             </Stepper>
                         </Hidden>
                         <CardContent>
-                                <div>
-                                    {activeStep === steps.length ? (
-                                        <div>
-                                            <Typography variant={"body1"}>
-                                                All steps completed - you&apos;re finished
-                                            </Typography>
-                                            <Button onClick={handleReset}>
-                                                Reset
-                                            </Button>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            {getStepContent(activeStep)!.map((formFields:formFieldProps, index: number) => {
+                            <div>
+                                {activeStep === 7 ? (
+                                    <div>
+                                        <Typography variant={"body1"}>
+                                            If you completed the payment process you will receive an emailed receipt. If there are any questions,
+                                            please email Justin @ <a href={"mailto:justin@gallatinvalleymcl.org"}>justin@gallatinvalleymcl.org</a>
+                                            <br/>
+                                            We hope to see you at our next meeting at 1900 hours on September 15th, 2020 at the Bozeman American Legion
+                                        </Typography>
+                                        <Typography variant={"h6"}>
+                                            Meeting Location:
+                                        </Typography>
+                                        <Typography variant={"body1"}>
+                                            American Legion
+                                            225 E Main
+                                            Bozeman, MT 59771
+                                            United States
+                                        </Typography>
+                                        <Button onClick={handleReset}>
+                                            Reset
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {
 
-                                                if (formFields.type === "text"){
+                                            if (formFields.type === "text") {
 
-                                                    return (
+                                                return (
+                                                    <TextComponent formFields={formFields} key={index} index={index}
                                                         // @ts-ignore
-                                                        <TextComponent formFields={formFields} key={index} index={index} register={register} values={formValues} errors={errors}/>
-                                                    )
-                                                }
-                                                if (formFields.type === "radio"){
-                                                    // @ts-ignore
-                                                    return formFields.fields.map((field: formRadioFieldProps, index) => {
-                                                        return (
+                                                                   register={register} values={formValues}
+                                                                   appType={formValues.appType}/>
+                                                )
+                                            }
+                                            if (formFields.type === "radio") {
+                                                // @ts-ignore
+                                                return formFields.fields.map((field: formRadioFieldProps, index) => {
+                                                    return (
+                                                        <RadioComponent key={index} fields={field} register={register}
                                                             // @ts-ignore
-                                                            <RadioComponent key={index}  fields={field} register={register} currentValue={formValues[field.groupName]}/>
-                                                        )
-                                                })}
-                                                if (formFields.type === "cert"){
-                                                    return <CertComponent register={register} currentValue={""} certified={formValues.certified} radioFields={formFields.radio} key={index}/>
-                                                }
-                                                if (formFields.type === "oath"){
-                                                    return <OathComponent key={index} register={register} affirmed={formValues.oath} memberName={formValues.firstName + " " + formValues.lastName} />
-                                                }
-                                                if (formFields.type === "submit"){
-                                                    // @ts-ignore
-                                                    return <SubmitComponent formValues={formValues} title={formFields.title}/>
-                                                }
-                                                return null
-                                            })}
-                                            <div>
-                                                <br/>
-                                                <Button disabled={activeStep === 0} onClick={handleBack}>
-                                                    Back
-                                                </Button>
-                                                {activeStep !== steps.length - 1 ?
+                                                                        currentValue={formValues[field.groupName]}/>
+                                                    )
+                                                })
+                                            }
+                                            if (formFields.type === "cert" && formValues.appType === "new") {
+                                                return <CertComponent register={register} currentValue={""}
+                                                                      certified={formValues.certified}
+                                                                      radioFields={formFields.radio} key={index}/>
+                                            }
+                                            if (formFields.type === "oath" && formValues.appType === "new") {
+                                                return <OathComponent key={index} register={register}
+                                                                      affirmed={formValues.oath}
+                                                                      memberName={formValues.firstName + " " + formValues.lastName}/>
+                                            }
+                                            if (formFields.type === "submit") {
+                                                // @ts-ignore
+                                                return <SubmitComponent formValues={formValues}
+                                                                        title={formFields.title} key={index}/>
+                                            }
+                                            return null
+                                        })}
+                                        <div>
+                                            <br/>
+                                            <Button disabled={activeStep === 0} onClick={handleBack}>
+                                                Back
+                                            </Button>
+                                            {activeStep !== steps.length - 1 ?
                                                 (<Button
                                                     variant="contained"
                                                     color="primary"
                                                     role={"submit"}
                                                     onClick={handleSubmit(handleNext)}
                                                 >Next</Button>) : (
-                                                    <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    role={"submit"}
-                                                    ><Link color={"inherit"} target={"_blank"} href={squareUrl(formValues.appType+formValues.memberType)}>Make Payment</Link></Button>
-                                                    )}
-                                            </div>
+                                                    <React.Fragment>
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            role={"submit"}
+                                                            onClick={onSubmit}
+                                                            href={squareUrl(formValues.appType + formValues.memberType)}
+                                                        >Make Payment</Button>
+                                                        <Dialog open={open} maxWidth={"md"} >
+                                                            <DialogTitle className={classes.appBar}>
+                                                                <Toolbar>
+                                                                    <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                                                                        <Close />
+                                                                    </IconButton>
+                                                                    <Typography variant="h5" align={"center"}>
+                                                                        Please complete Payment
+                                                                    </Typography>
+                                                                </Toolbar>
+                                                            </DialogTitle>
+                                                            <DialogContent>
+                                                                <iframe src={squareUrl(formValues.appType + formValues.memberType)} width="100%" height={"1000"} frameBorder="0"/>
+                                                            </DialogContent>
+                                                        </Dialog>
+                                                    </React.Fragment>
+                                                )}
                                         </div>
-                                    )}
-                                </div>
+                                    </div>
+                                )}
+                            </div>
                         </CardContent>
                     </Card>
-            </Layout>
+                    : <FirebaseAuth returnPath={"/memberships"}/> }
+                </Layout>
         </React.Fragment>
     );
 }

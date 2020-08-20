@@ -14,13 +14,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function TextComponent(props: TextComponentProps) {
     const classes = useStyles();
-    const {formFields, index, register, values} = props
+    const {formFields, index, register, values, appType} = props
 
     return (
         <React.Fragment>
             <Typography variant={"body1"} key={index}>{formFields.title}</Typography>
             {/*@ts-ignore*/}
-            {formFields.fields.map((field) => {
+            {formFields.fields.map((field, index) => {
+                if (field.hidden && appType === "renew"){
+                    return null
+                }
+                if (appType === "new" && field.name === "mclId"){
+                    return null
+                }
                 let defaultValue: string;
                 let shrink: boolean | undefined = undefined;
                 if (field!.type === "date"){
@@ -30,22 +36,24 @@ export default function TextComponent(props: TextComponentProps) {
                 const fieldName = field?.name ? field.name : false;
                 defaultValue = fieldName ? values[fieldName] : field.placeholder;
                 return (
-                    <TextField name={field!.name}
-                               label={field!.label}
-                               type={field!.type}
-                               id={field!.name}
-                               variant={field!.variant}
-                               inputRef={register(field!.inputRef)}
-                               margin={field!.margin}
-                               required={field!.required}
-                               autoComplete={field!.autoComplete}
-                               className={classes.inputField}
-                               autoFocus={field!.autoFocus}
-                               key={field!.name}
-                               defaultValue={defaultValue}
-                               placeholder={field.placeholder}
-                               InputLabelProps={{shrink: shrink}}
-                    />
+                    <React.Fragment key={index}>
+                        <TextField name={field!.name}
+                                   label={field!.label}
+                                   type={field!.type}
+                                   id={field!.name}
+                                   variant={field!.variant}
+                                   inputRef={register(field!.inputRef)}
+                                   margin={field!.margin}
+                                   required={field!.required}
+                                   autoComplete={field!.autoComplete}
+                                   className={classes.inputField}
+                                   autoFocus={field!.autoFocus}
+                                   key={field!.name}
+                                   defaultValue={defaultValue}
+                                   placeholder={field.placeholder}
+                                   InputLabelProps={{shrink: shrink}}
+                        />
+                    </React.Fragment>
                 )
             })}
         </React.Fragment>

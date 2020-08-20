@@ -5,11 +5,12 @@ import 'firebase/auth'
 import initFirebase from '../auth/initFirebase'
 import {getUserFromCookie, removeUserCookie, setUserCookie,} from './userCookies'
 import {mapUserData} from './mapUserData'
+import {AppUser} from "../../index";
 
 initFirebase()
 
 const useUser = () => {
-    const [user, setUser] = useState()
+    const [user, setUser] = useState<AppUser>()
     const router = useRouter()
 
     const logout = async () => {

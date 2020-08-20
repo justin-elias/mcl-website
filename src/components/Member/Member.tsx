@@ -5,7 +5,7 @@ import {MclAppProps} from "../../index";
 import {mainElement} from "../../assets/globalStyle";
 
 /* eslint-disable no-unused-vars */
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     /* eslint-enable no-unused-vars */
     mainElement: {
         ...mainElement,
@@ -35,9 +35,7 @@ export default function Member(props: MclAppProps) {
     return (
         <React.Fragment>
             <Container className={classes.mainElement}>
-                <Typography variant={"body1"}>
-                    Username: {user?.email}
-                </Typography>
+                {isUser}
             </Container>
         </React.Fragment>
     );

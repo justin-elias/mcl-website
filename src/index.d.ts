@@ -36,7 +36,7 @@ export interface LayoutProps extends MclAppProps {
     hero?: boolean
 }
 
-export interface FormOptions extends string{
+export interface FormOptions{
     firstName: string | ""
     lastName: string | ""
     phone: string | ""
@@ -60,11 +60,12 @@ export interface formFieldProps {
     type: string
     radio?: formRadioFieldProps
 }
-export interface TextComponentProps {
+export interface TextComponentProps  {
     formFields: formFieldProps
     index: number,
     register: any,
-    values: Array<FormOptions>
+    values: Array<FormOptions>,
+    appType: FormOptions.appType
 }
 
 export interface formRadioFieldProps {

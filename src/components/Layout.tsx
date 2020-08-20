@@ -11,6 +11,11 @@ import Logo from "../assets/images/mclLogo.png";
 import Hero from "../assets/images/heroImg.jpg"
 import {LayoutProps, MclAppProps} from "../index";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import GridContainer from "./GridComponents/GridContainer";
+import GridItem from "./GridComponents/GridItem";
+import Link from "next/link";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import Typography from "@material-ui/core/Typography";
 
 const useStyle = makeStyles((theme: Theme) => ({
     rootContainer: {
@@ -66,7 +71,20 @@ const useStyle = makeStyles((theme: Theme) => ({
         bottom: theme.spacing(2),
         right: theme.spacing(2),
     },
-    container
+    grid: {
+        ...container,
+        width: "100%"
+    },
+    navLink: {
+        fontWeight: 700,
+        color: "#fff",
+        margin: theme.spacing(2),
+        "&:hover": {
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText
+        }
+    },
+    container,
 }))
 
 
@@ -109,11 +127,32 @@ const Layout = (props : LayoutProps) => {
         </Head>
         <div className={classes.rootContainer}>
             <header>
+                <nav role="navigation">
                 <AppBar className={classes.appBar}>
-                    <Toolbar id="back-to-top-anchor">
+                    <Toolbar id="back-to-top-anchor" className={classes.grid}>
+                            <GridContainer alignItems={"flex-end"} className={classes.container} justify={"flex-end"}>
+                                <GridItem >
+                                    <Link href={"/"} passHref>
+                                        <Button
+                                            className={classes.navLink}
+                                        >
+                                            <HomeOutlinedIcon /> <Typography variant={"body1"} >Home</Typography>
+                                        </Button>
+                                    </Link>
+                                </GridItem>
+                                <GridItem>
+                                    <Link href={"/memberships"} passHref>
+                                        <Button
+                                            className={classes.navLink}
+                                        ><Typography variant={"body1"}>Membership</Typography>
+                                        </Button>
+                                    </Link>
+                                </GridItem>
+                            </GridContainer>
 
                     </Toolbar>
                 </AppBar>
+                </nav>
                 <Button href={"/"} className={classes.logoButton}>
                     <img src={Logo} alt={"Robert A. Ellerd Detachment"} className={classes.logo}/>
                 </Button>
