@@ -60,6 +60,14 @@ const useStyles =makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.secondary.contrastText
     },
+    link: {
+        color: "#fff",
+        textDecoration: "none",
+        "&:hover": {
+            color: "#fff",
+            textDecoration: "none"
+        }
+    }
 }))
 const datePattern = RegExp("^(((0[1-9]|[12][0-9]|3[01])[- /.](0[13578]|1[02])|(0[1-9]|[12][0-9]|30)[- /.](0[469]|11)|(0[1-9]|1\\d|2[0-8])[- /.]02)[- /.]\\d{4}|29[- /.]02[- /.](\\d{2}(0[48]|[2468][048]|[13579][26])|([02468][048]|[1359][26])00))$")
 const metaDescription= "Join the Marine Corps League Detachment and support our mission in the Gallatin Valley"
@@ -369,7 +377,6 @@ export default function memberships(props:MclAppProps) {
         }
     }
     const handleNext = async (data: FormOptions) => {
-
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
         if (formValues.appType === "renew"){
@@ -520,7 +527,7 @@ export default function memberships(props:MclAppProps) {
                                                             variant="contained"
                                                             color="primary"
                                                             role={"submit"}
-                                                        ><a href={squareUrl(formValues.appType + formValues.memberType)} rel={"noreferrer noopener"}>Make Payment</a></Button>
+                                                        ><a href={squareUrl(formValues.appType + formValues.memberType)} rel={"noreferrer noopener"} className={classes.link}>Make Payment</a></Button>
                                                     </React.Fragment>
                                                 )}
                                         </div>
