@@ -49,11 +49,24 @@ const index = (props: MclAppProps) => {
                         </Hidden>
                     </GridContainer>
                     <br/>
-                    <Typography variant={"h3"}>Meeting Location</Typography>
-                    <br/>
-                    <iframe width="450" height="450" frameBorder="0" style={{border:0}}
-                            src={gKey}
-                            allowFullScreen/>
+                    <GridContainer justify={"center"}>
+                        <GridItem>
+                            <Typography variant={"h3"}>Meeting Info</Typography>
+                            <br/>
+                            <Typography variant={"body1"}>
+                                1900 hours on the 3rd Tuesday of Every Month <br/> <br/>
+                                <strong>Location:</strong> <br/>
+                                2nd Floor of the Bozeman American Legion <br/>
+                                225 E. Main St <br/>
+                                Bozeman, Mt 59715
+                            </Typography>
+                        </GridItem>
+                        <GridItem>
+                            <iframe width="450" height="450" frameBorder="0" style={{border:0}}
+                                    src={gKey}
+                                    allowFullScreen/>
+                        </GridItem>
+                    </GridContainer>
                 </Container>
             </Layout>
         </React.Fragment>
