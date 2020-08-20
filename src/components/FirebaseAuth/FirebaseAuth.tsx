@@ -16,7 +16,6 @@ initFirebase()
 interface AuthProps {
     returnPath: string
 }
-
 const FirebaseAuth = (props: AuthProps) => {
     // Do not SSR FirebaseUI, because it is not supported.
     // https://github.com/firebase/firebaseui-web/issues/213
@@ -28,6 +27,7 @@ const FirebaseAuth = (props: AuthProps) => {
         }
     }, [])
 
+    const signInUrl = process.env.NEXT_PUBLIC_WEBSITE_URL + returnPath;
     const firebaseAuthConfig = {
         signInFlow: 'redirect',
         // Auth providers
@@ -42,7 +42,7 @@ const FirebaseAuth = (props: AuthProps) => {
                 // the link in a mobile app if it is installed.
                 emailLinkSignIn: function() {
                     return {
-                        url: process.env.NEXT_PUBLIC_WEBSITE_URL + "/login",
+                        url: signInUrl,
                         // Always true for email link sign-in.
                         handleCodeInApp: true,
                     };
