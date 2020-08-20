@@ -481,18 +481,20 @@ export default function memberships(props:MclAppProps) {
                                     </div>
                                 ) : (
                                     <div>
-                                        {/*{getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {*/}
-
-                                        {/*    if (formFields.type === "text") {*/}
-
+                                        {getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {
+                                            console.log("cp0")
+                                            if (formFields.type === "text") {
+                                                    console.log("cp1")
                                         {/*        return (*/}
                                         {/*            <TextComponent formFields={formFields} key={index} index={index}*/}
                                         {/*                // @ts-ignore*/}
                                         {/*                           register={register} values={formValues}*/}
                                         {/*                           appType={formValues.appType}/>*/}
                                         {/*        )*/}
-                                        {/*    }*/}
-                                        {/*    if (formFields.type === "radio") {*/}
+                                            }
+                                            console.log("cp2")
+                                            if (formFields.type === "radio") {
+                                                console.log("cp3")
                                         {/*        // @ts-ignore*/}
                                         {/*        return formFields.fields.map((field: formRadioFieldProps, index) => {*/}
                                         {/*            return (*/}
@@ -501,8 +503,10 @@ export default function memberships(props:MclAppProps) {
                                         {/*                                currentValue={formValues[field.groupName]}/>*/}
                                         {/*            )*/}
                                         {/*        })*/}
-                                        {/*    }*/}
-                                        {/*    if (formFields.type === "cert" && formValues.appType === "new") {*/}
+                                            }
+                                            console.log("cp4")
+                                            if (formFields.type === "cert" && formValues.appType === "new") {
+                                                console.log("cp5")
                                         {/*        return <CertComponent register={register} currentValue={""}*/}
                                         {/*                              certified={formValues.certified}*/}
                                         {/*                              radioFields={formFields.radio} key={index}/>*/}
@@ -511,14 +515,17 @@ export default function memberships(props:MclAppProps) {
                                         {/*        return <OathComponent key={index} register={register}*/}
                                         {/*                              affirmed={formValues.oath}*/}
                                         {/*                              memberName={formValues.firstName + " " + formValues.lastName}/>*/}
-                                        {/*    }*/}
-                                        {/*    if (formFields.type === "submit") {*/}
+                                            }
+                                            console.log("cp6")
+                                            if (formFields.type === "submit") {
+                                                console.log("cp7")
                                         {/*        // @ts-ignore*/}
                                         {/*        return <SubmitComponent formValues={formValues}*/}
                                         {/*                                title={formFields.title} key={index}/>*/}
-                                        {/*    }*/}
-                                        {/*    return null*/}
-                                        {/*})}*/}
+                                            }
+                                            console.log("cp7")
+                                            return null
+                                       })}
                                         <div>
                                             <br/>
                                             <Button disabled={activeStep === 0} onClick={handleBack}>
