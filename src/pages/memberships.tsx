@@ -354,19 +354,6 @@ export default function memberships(props:MclAppProps) {
     const [steps, setSteps] = useState<string[]>(getSteps("renew"))
     const { register, handleSubmit} = useForm();
 
-    // @ts-ignore
-    const onSubmit = async (event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        event.preventDefault();
-        try {
-            await updateUser(formValues, user)
-        }catch (error){
-            Sentry.captureException(error)
-        }
-        window.open(squareUrl(formValues.appType + formValues.memberType), "_blank");
-        setActiveStep(7);
-
-    };
-
     const squareUrl = (choice: string) => {
         switch (choice) {
             case "newregular":
@@ -381,7 +368,7 @@ export default function memberships(props:MclAppProps) {
                 return ""
         }
     }
-    const handleNext = (data: FormOptions) => {
+    const handleNext = async (data: FormOptions) => {
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
@@ -397,6 +384,11 @@ export default function memberships(props:MclAppProps) {
             formValues[key] = data[key];
         })
         setFormValues(formValues);
+        try {
+            await updateUser(formValues, user)
+        }catch (error){
+            Sentry.captureException(error)
+        }
     };
 
     const handleBack = () => {
@@ -455,7 +447,7 @@ export default function memberships(props:MclAppProps) {
                                 {activeStep === 7 ? (
                                     <div>
                                         <Typography variant={"body1"}>
-                                            If you completed the payment process you will receive an emailed receipt. If there are any questions,
+                                            The payment window should have opened in a new window. If there are any questions,
                                             please email Justin @ <a href={"mailto:justin@gallatinvalleymcl.org"}>justin@gallatinvalleymcl.org</a>
                                             <br/>
                                             We hope to see you at our next meeting at 1900 hours on September 15th, 2020 at the Bozeman American Legion
@@ -528,8 +520,7 @@ export default function memberships(props:MclAppProps) {
                                                             variant="contained"
                                                             color="primary"
                                                             role={"submit"}
-                                                            onClick={onSubmit}
-                                                        >Make Payment</Button>
+                                                        ><a href={squareUrl(formValues.appType + formValues.memberType)} rel={"noreferrer noopener"}>Make Payment</a></Button>
                                                     </React.Fragment>
                                                 )}
                                         </div>
