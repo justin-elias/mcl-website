@@ -495,14 +495,15 @@ export default function memberships(props:MclAppProps) {
                                             console.log("cp2")
                                             if (formFields.type === "radio") {
                                                 console.log("cp3")
-                                        {/*        // @ts-ignore*/}
-                                        {/*        return formFields.fields.map((field: formRadioFieldProps, index) => {*/}
-                                        {/*            return (*/}
-                                        {/*                <RadioComponent key={index} fields={field} register={register}*/}
-                                        {/*                    // @ts-ignore*/}
-                                        {/*                                currentValue={formValues[field.groupName]}/>*/}
-                                        {/*            )*/}
-                                        {/*        })*/}
+                                                // @ts-ignore
+                                                return formFields.fields.map((field: formRadioFieldProps, index) => {
+                                                    console.log("cp9")
+                                                    return (
+                                                        <RadioComponent key={index} fields={field} register={register}
+                                                            // @ts-ignore*/}
+                                                                        currentValue={formValues[field.groupName]}/>
+                                                    )
+                                                })
                                             }
                                             console.log("cp4")
                                             if (formFields.type === "cert" && formValues.appType === "new") {
@@ -523,7 +524,7 @@ export default function memberships(props:MclAppProps) {
                                         {/*        return <SubmitComponent formValues={formValues}*/}
                                         {/*                                title={formFields.title} key={index}/>*/}
                                             }
-                                            console.log("cp7")
+                                            console.log("cp8")
                                             return null
                                        })}
                                         <div>
