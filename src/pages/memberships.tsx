@@ -9,9 +9,6 @@ import {
     Typography,
     Hidden,
     MobileStepper,
-    DialogTitle,
-    Toolbar,
-    IconButton, DialogContent, Dialog
 } from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {card} from "../assets/globalStyle";
@@ -26,7 +23,6 @@ import SubmitComponent from "../components/ApplicationFormComponents/SubmitCompo
 import FirebaseAuth from "../components/FirebaseAuth/FirebaseAuth";
 import updateUser from "../utils/auth/updateUser";
 import * as Sentry from "@sentry/node"
-import {Close} from "@material-ui/icons";
 
 const useStyles =makeStyles((theme) => ({
 
@@ -356,12 +352,8 @@ export default function memberships(props:MclAppProps) {
         mclId: ""
     })
     const [steps, setSteps] = useState<string[]>(getSteps("renew"))
-    const [open, setOpen] = useState(false)
     const { register, handleSubmit} = useForm();
-    const handleClose = () => {
-        setOpen(false);
-        setActiveStep(7);
-    };
+
     // @ts-ignore
     const onSubmit = async (event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
@@ -370,7 +362,9 @@ export default function memberships(props:MclAppProps) {
         }catch (error){
             Sentry.captureException(error)
         }
-        setOpen(true);
+        window.open(squareUrl(formValues.appType + formValues.memberType), "_blank");
+        setActiveStep(7);
+
     };
 
     const squareUrl = (choice: string) => {
@@ -535,23 +529,7 @@ export default function memberships(props:MclAppProps) {
                                                             color="primary"
                                                             role={"submit"}
                                                             onClick={onSubmit}
-                                                            href={squareUrl(formValues.appType + formValues.memberType)}
                                                         >Make Payment</Button>
-                                                        <Dialog open={open} maxWidth={"md"} >
-                                                            <DialogTitle className={classes.appBar}>
-                                                                <Toolbar>
-                                                                    <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                                                                        <Close />
-                                                                    </IconButton>
-                                                                    <Typography variant="h5" align={"center"}>
-                                                                        Please complete Payment
-                                                                    </Typography>
-                                                                </Toolbar>
-                                                            </DialogTitle>
-                                                            <DialogContent>
-                                                                <iframe src={squareUrl(formValues.appType + formValues.memberType)} width="100%" height={"1000"} frameBorder="0"/>
-                                                            </DialogContent>
-                                                        </Dialog>
                                                     </React.Fragment>
                                                 )}
                                         </div>
