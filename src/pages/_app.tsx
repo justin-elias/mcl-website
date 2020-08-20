@@ -25,9 +25,9 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     })
 }
 
-if (process.env.NODE_ENV === "production") {
-    Sentry.init({dsn: process.env.NEXT_PUBLIC_SENTRY_DSN});
-}
+// if (process.env.NODE_ENV === "production") {
+//     Sentry.init({dsn: process.env.NEXT_PUBLIC_SENTRY_DSN});
+// }
 
 export default function App(props: MclAppProps){
     const { Component, pageProps, err } = props;
