@@ -21,5 +21,4 @@ export default async function updateUser(formValues: { lastName: string; zipCode
     catch (error){
         Sentry.captureException(error)
     }
-
 }

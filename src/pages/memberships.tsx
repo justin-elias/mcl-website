@@ -365,13 +365,13 @@ export default function memberships(props:MclAppProps) {
     const squareUrl = (choice: string) => {
         switch (choice) {
             case "newregular":
-                return "https://checkout.square.site/pay/192bc66d7a504e958ba969b29a1c48fa"
+                return "https://checkout.square.site/pay/73d22451755f4188ab0d17cc89a4f915"
             case "newassociate":
-                return "https://checkout.square.site/pay/70ca90c66b67402ea2151cbde774bb4a"
+                return "https://checkout.square.site/pay/b11e5019b04c42ab876e862080cc9216"
             case "renewregular":
-                return "https://checkout.square.site/pay/d5caee920b8b4679bab3164361a627d1"
+                return "https://checkout.square.site/pay/c3d508a2d5554584b72619cb6c9368ee"
             case "renewassociate":
-                return "https://checkout.square.site/pay/7979afdf17f74cbaaad812887028d8a5"
+                return "https://checkout.square.site/pay/a6f4f1c4ea3649f58d721660b12c691d"
             default:
                 return ""
         }
