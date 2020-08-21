@@ -391,7 +391,7 @@ export default function memberships(props:MclAppProps) {
             formValues[key] = data[key];
         })
         setFormValues(formValues);
-        const updateValues = formValues;
+        const updateValues = Object.assign({}, formValues);
         delete updateValues.appType
         try {
             await updateUser(updateValues, user)
