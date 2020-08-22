@@ -27,9 +27,9 @@ export default function RadioComponent(props) {
         <React.Fragment>
             <FormControl component="fieldset" className={classes.inputField} >
                 <FormLabel component={"legend"}>{fields.formLabel}</FormLabel>
-                <RadioGroup name={fields.groupName} aria-label={fields.groupName} value={value} onChange={handleChange}>
-                    <FormControlLabel value={fields.value1} control={<Radio color="primary" inputRef={register({required: true})}/>} label={fields.label1}/>
-                    <FormControlLabel value={fields.value2} control={<Radio  color="primary" inputRef={register({required: true})} />} label={fields.label2}/>
+                <RadioGroup name={fields.groupName} aria-label={fields.groupName} value={value} onChange={handleChange} >
+                    <FormControlLabel value={fields.value1} control={<Radio color="primary" name={fields.groupName} inputRef={register({required: true})}/>} label={fields.label1}/>
+                    <FormControlLabel value={fields.value2} control={<Radio  color="primary" name={fields.groupName} inputRef={register({required: true})} />} label={fields.label2}/>
                 </RadioGroup>
                 <br/>
             </FormControl>

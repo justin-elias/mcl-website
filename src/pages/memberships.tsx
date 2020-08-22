@@ -20,9 +20,8 @@ import RadioComponent from "../components/ApplicationFormComponents/RadioCompone
 import CertComponent from "../components/ApplicationFormComponents/CertComponent";
 import OathComponent from "../components/ApplicationFormComponents/OathComponent";
 import SubmitComponent from "../components/ApplicationFormComponents/SubmitComponent";
-import FirebaseAuth from "../components/FirebaseAuth/FirebaseAuth";
-import updateUser from "../utils/auth/updateUser";
 import * as Sentry from "@sentry/node"
+import sendForm from "../utils/auth/sendForm";
 
 const useStyles =makeStyles((theme) => ({
 
@@ -268,6 +267,21 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         hidden: false
                     },
                     {
+                        name: "email",
+                        label: "Email",
+                        type: "email",
+                        id: name,
+                        variant: "filled",
+                        inputRef: {required: true, pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i},
+                        margin: "normal",
+                        required: true,
+                        autoComplete: "billing email",
+                        autoFocus: false,
+                        placeholder:"me@example.com",
+                        helperText: "We need a valid email address",
+                        hidden: false
+                    },
+                    {
                         name: "phone",
                         label: "Phone",
                         type: "tel",
@@ -337,32 +351,36 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
     }
 }
 
+const defaultFormValues: FormOptions = {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    dob: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    appType: "renew",
+    memberType: "regular",
+    dateEnlistCommission: "",
+    eas: "",
+    felony: "",
+    certified: false,
+    oath: false,
+    mclId: "",
+    email: "",
+    subscribe: true
+}
+
 export default function memberships(props:MclAppProps) {
     const classes = useStyles();
     const {user, ...rest} = props;
     const [activeStep, setActiveStep] = useState(0);
-    const [formValues, setFormValues] = useState({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        dob: "",
-        streetAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        appType: "renew",
-        memberType: "regular",
-        dateEnlistCommission: "",
-        eas: "",
-        felony: "",
-        certified: false,
-        oath: false,
-        mclId: ""
-    })
+    const [formValues, setFormValues] = useState(defaultFormValues)
     const [steps, setSteps] = useState<string[]>(getSteps("renew"))
-    const { register, handleSubmit} = useForm();
+    const { register, handleSubmit, clearErrors} = useForm();
 
-    const squareUrl = (choice: string) => {
+    const squareUrl: (choice: string) => string = (choice: string) => {
         switch (choice) {
             case "newregular":
                 return "https://checkout.square.site/pay/73d22451755f4188ab0d17cc89a4f915"
@@ -376,6 +394,24 @@ export default function memberships(props:MclAppProps) {
                 return ""
         }
     }
+
+    const saveFormValues = (data: FormOptions) => {
+        const keys: string[] = Object.keys(data)
+        keys.map((key) => {
+            // @ts-ignore
+            formValues[key] = data[key];
+        })
+        setFormValues(formValues);
+    }
+    const submitForm: (data:FormOptions) => void = async (data) => {
+        saveFormValues(data);
+        try {
+            await sendForm(formValues)
+        } catch(error) {
+            Sentry.captureException(error);
+        }
+        window.location.assign(squareUrl(formValues.appType + formValues.memberType))
+    }
     const handleNext = async (data: FormOptions) => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
@@ -384,20 +420,8 @@ export default function memberships(props:MclAppProps) {
                 setActiveStep(5)
             }
         }
-        // @ts-ignore
-        const keys: Array<keyof FormOptions> = Object.keys(data)
-        keys.map((key) => {
-            // @ts-ignore
-            formValues[key] = data[key];
-        })
-        setFormValues(formValues);
-        const updateValues = Object.assign({}, formValues);
-        delete updateValues.appType
-        try {
-            await updateUser(updateValues, user)
-        }catch (error){
-            Sentry.captureException(error)
-        }
+        await saveFormValues(data)
+        console.log(formValues)
     };
 
     const handleBack = () => {
@@ -410,6 +434,8 @@ export default function memberships(props:MclAppProps) {
     };
 
     const handleReset = () => {
+        clearErrors();
+        setFormValues(defaultFormValues);
         setActiveStep(0);
     };
 
@@ -430,7 +456,6 @@ export default function memberships(props:MclAppProps) {
                 <Layout title={"Join-Renew | Gallatin Valley MCL"} {...rest} metaDescription={metaDescription}>
                     <Typography variant={"h3"} component={"h1"} align={"center"} className={classes.header}>Marine Corps
                         League Membership Form</Typography>
-                    { user ?
                     <Card className={classes.formCard} variant={"elevation"}>
                         <Hidden lgUp>
                             <MobileStepper
@@ -512,7 +537,9 @@ export default function memberships(props:MclAppProps) {
                                             if (formFields.type === "submit") {
                                                 // @ts-ignore
                                                 return <SubmitComponent formValues={formValues}
-                                                                        title={formFields.title} key={index}/>
+                                                                        title={formFields.title}
+                                                                        key={index}
+                                                                        register={register}/>
                                             }
                                             return null
                                        })}
@@ -533,7 +560,8 @@ export default function memberships(props:MclAppProps) {
                                                             variant="contained"
                                                             color="primary"
                                                             role={"submit"}
-                                                        ><a href={squareUrl(formValues.appType + formValues.memberType)} rel={"noreferrer noopener"} className={classes.link}>Make Payment</a></Button>
+                                                            onClick={handleSubmit(submitForm)}
+                                                        >Make Payment</Button>
                                                     </React.Fragment>
                                                 )}
                                         </div>
@@ -542,7 +570,6 @@ export default function memberships(props:MclAppProps) {
                             </div>
                         </CardContent>
                     </Card>
-                    : <FirebaseAuth returnPath={"/memberships"}/> }
                 </Layout>
         </React.Fragment>
     );

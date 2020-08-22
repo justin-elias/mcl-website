@@ -1,40 +1,21 @@
-import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React from "react";
 import RadioComponent from "./RadioComponent";
 import {CertComponentProps} from "../../index";
 import {
     Typography,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    Checkbox,
-    FormHelperText
 } from "@material-ui/core";
-
-/* eslint-disable no-unused-vars */
-const useStyles = makeStyles((theme) => ({
-    /* eslint-enable no-unused-vars */
-    helperText: {
-        color: theme.palette.primary.main
-    }
-}));
+import CheckComponent from "./CheckComponent";
 
 export default function CertComponent(props: CertComponentProps) {
-    const classes = useStyles();
     const {register, currentValue, radioFields, certified } = props;
-    const [checked, setChecked] = useState(certified);
-    const [error, setError] = useState(false)
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const isChecked = event.target.checked;
-        setChecked(isChecked);
-        if (!isChecked) {
-            setError(true)
-        }
-    };
     return (
         <React.Fragment>
             <RadioComponent fields={radioFields} register={register} currentValue={currentValue}/>
+            <Typography variant={"body1"} align={"left"}>
+                <em>If yes is checked, I agree to waive my rights under the Privacy Act and disclose the nature of the felony conviction for consideration of membership in the Marine Corps League.</em>
+            </Typography>
+            <br/>
             <Typography variant={"body1"} align={"left"}>I hereby certify that I am currently serving or have served honorably in the United States Marine Corps,
                 "<strong>ON ACTIVE DUTY</strong>," for not less than ninety (90) days and earned the Eagle, Globe and Anchor;* or have
                 served or am currently serving in the United States Marine Corps Reserve and have earned no less than
@@ -49,14 +30,13 @@ export default function CertComponent(props: CertComponentProps) {
                 service/discharge upon request. I understand the DD Form 214 may contain information such as
                 military awards, training, and character of service.</Typography>
 
-            <FormControl component="fieldset" required error={error}>
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox color={"primary"} checked={checked} onChange={handleChange} name="certified" inputRef={register({required: true})}/>}
-                                      label={"By checking this box, I certify the above to be true"}
-                    />
-                    <FormHelperText className={classes.helperText}>You Must certify the above to be true to continue</FormHelperText>
-                </FormGroup>
-            </FormControl>
+            <CheckComponent label={"By checking this box, I certify the above to be true"}
+                            helperText={"You Must certify the above to be true to continue"}
+                            register={register}
+                            checked={certified}
+                            name={"certified"}
+                            required={true}
+                            color={"primary"}/>
         </React.Fragment>
     );
 }

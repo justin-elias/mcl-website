@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {OathComponentProps} from "../../index";
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
+import CheckComponent from "./CheckComponent";
 
 /* eslint-disable no-unused-vars */
 const useStyles = makeStyles((theme) => ({
@@ -14,16 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function OathComponent(props: OathComponentProps) {
     const classes = useStyles();
     const {register, affirmed, memberName} = props
-    const [checked, setChecked] = useState(affirmed);
-    const [error, setError] = useState(false)
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const isChecked = event.target.checked;
-        setChecked(isChecked);
-        if (!isChecked) {
-            setError(true)
-        }
-    };
     return (
         <React.Fragment>
             <Typography variant={"body1"} align={"left"}>
@@ -34,14 +26,13 @@ export default function OathComponent(props: OathComponentProps) {
                 activities of the Marine Corps League, and that I promise to govern my conduct in such a manner that I will never
                 bring discredit upon myself, Members of the League, or the Marine Corps League, so help me God.
             </Typography>
-            <FormControl component="fieldset" required error={error}>
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox color={"primary"} checked={checked} onChange={handleChange} name="oath" inputRef={register({required: true})}/>}
-                                      label={"By checking this box, I agree to swear the above oath"}
-                    />
-                    <FormHelperText className={classes.redText}>You Must affirm the above to continue</FormHelperText>
-                </FormGroup>
-            </FormControl>
+            <CheckComponent helperText={"You Must affirm the above to continue"}
+                            register={register}
+                            checked={affirmed}
+                            name={"oath"}
+                            required={true}
+                            color={"primary"}
+                            label={"By checking this box, I agree to swear the above oath"}/>
         </React.Fragment>
     );
 }
