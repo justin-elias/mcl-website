@@ -51,8 +51,11 @@ export interface FormOptions{
     eas: string | ""
     certified: boolean
     oath: boolean
-    felony: "yes" | "no"
-}[];
+    felony: "yes" | "no" | "",
+    email: string
+    subscribe: boolean
+    mclId: string | ""
+}
 
 export interface formFieldProps {
     fields: [TextFieldProps] | [formRadioFieldProps] | [CertComponentProps]
@@ -98,4 +101,5 @@ export interface OathComponentProps {
 export interface SubmitComponentProps {
     formValues: FormOptions
     title: string
+    register: any
 }

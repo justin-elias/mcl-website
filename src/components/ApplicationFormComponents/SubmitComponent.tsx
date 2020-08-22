@@ -1,10 +1,11 @@
 import React from "react";
 import {SubmitComponentProps} from "../../index";
 import {Typography} from "@material-ui/core";
+import CheckComponent from "./CheckComponent";
 
 
 export default function SubmitComponent(props: SubmitComponentProps) {
-    const {formValues, title} = props
+    const {formValues, title, register} = props
 
     const isNew = formValues.appType === "new" ?
         <React.Fragment>
@@ -34,7 +35,9 @@ export default function SubmitComponent(props: SubmitComponentProps) {
                 <strong>State:</strong> {formValues.state} <br/>
                 <strong>Zipcode:</strong> {formValues.zipCode} <br/>
                 <strong>Phone:</strong> {formValues.phone} <br/>
+                <strong>Email:</strong> {formValues.email} <br/>
             </Typography>
+            <CheckComponent register={register} checked={formValues.subscribe} name={"subscribe"} required={false} color={"primary"} label={"Subscribe to our Newsletter to be in the loop on future meetings and events!"}/>
                 <hr/>
         </React.Fragment>
     );
