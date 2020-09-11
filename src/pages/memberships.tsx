@@ -144,7 +144,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         type: "date",
                         id: name,
                         variant: "filled",
-                        inputRef: {required: true, pattern: datePattern},
+                        inputRef: {required: true},
                         margin: "normal",
                         required: true,
                         autoComplete: "billing bday",
