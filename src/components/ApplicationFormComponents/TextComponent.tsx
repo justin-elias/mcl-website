@@ -30,7 +30,7 @@ export default function TextComponent(props: TextComponentProps) {
                 let defaultValue: string;
                 let shrink: boolean | undefined = undefined;
                 if (field!.type === "date"){
-                    shrink = true;
+                    // shrink = true;
                 }
 
                 const fieldName = field?.name ? field.name : false;
