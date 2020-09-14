@@ -1,4 +1,14 @@
-# 0.1.0 (2020-08-22)
+## [0.1.1](https://github.com/justin-elias/mcl-website/compare/v0.1.0...v0.1.1) (2020-09-14)
+
+
+### Bug Fixes
+
+* **form:** Date pattern incompatible with iOS date picker ([f37f1a1](https://github.com/justin-elias/mcl-website/commit/f37f1a1017c37d0cee51fa2eca0971c398716428))
+* **form:** removed date regex pattern ([1fae738](https://github.com/justin-elias/mcl-website/commit/1fae73801ae271bd5facbc4466e37b15cd8127ec))
+
+
+
+# [0.1.0](https://github.com/justin-elias/mcl-website/compare/69ed25eb043e8021c971b0d04a5d2e54760b4824...v0.1.0) (2020-08-22)
 
 
 ### Bug Fixes
