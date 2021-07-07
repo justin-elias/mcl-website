@@ -30,7 +30,7 @@ const index = (props: MclAppProps) => {
             <Layout title={"Home | Gallatin Valley MCL"} metaDescription={metaDescription} {...rest} hero>
 
                 <Container className={classes.mainElement}>
-                    <GridContainer justify={"space-between"}>
+                    <GridContainer justifyContent={"space-between"}>
                         <GridItem md={6}>
                             <Typography variant="h1" align={"left"} component={"h2"}>Our Mission</Typography>
                             <Typography variant="body1" align={"left"}>
@@ -49,7 +49,7 @@ const index = (props: MclAppProps) => {
                         </Hidden>
                     </GridContainer>
                     <br/>
-                    <GridContainer justify={"center"} spacing={6}>
+                    <GridContainer justifyContent={"center"} spacing={6}>
                         <GridItem>
                             <Typography variant={"h3"}>Meeting Info</Typography>
                             <br/>

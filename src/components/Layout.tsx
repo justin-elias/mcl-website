@@ -129,7 +129,7 @@ const Layout = (props : LayoutProps) => {
                 <nav role="navigation">
                 <AppBar className={classes.appBar}>
                     <Toolbar id="back-to-top-anchor" className={classes.grid}>
-                            <GridContainer className={classes.container} justify={"flex-end"}>
+                            <GridContainer className={classes.container} justifyContent={"flex-end"}>
                                 <GridItem >
                                     <Link href={"/"} passHref>
                                         <Button

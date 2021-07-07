@@ -1,4 +1,4 @@
-import {createMuiTheme, responsiveFontSizes} from "@material-ui/core/styles";
+import {createTheme, responsiveFontSizes} from "@material-ui/core/styles";
 import {blueGrey, red} from "@material-ui/core/colors";
 
 // Brand Palette
@@ -13,7 +13,7 @@ export const roseColor = "#e91e63";
 export const grayColor = "#999999";
 
 // Create a theme instance.
-const themeBase = createMuiTheme({
+const themeBase = createTheme({
     palette: {
         text: {
             primary: "#333"
