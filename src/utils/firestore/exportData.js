@@ -21,15 +21,31 @@ admin.initializeApp({
 
 const exportData = async () => {
     const formsRef = admin.firestore().collection('forms');
-    const lastExport = (await formsRef.doc("lastExport").get()).data().timestamp;
-    const snapshot = await formsRef.where("timestamp", ">", lastExport).orderBy("timestamp", "desc").get();
     const data = []
-    snapshot.docs.map((doc) => {
-        data.push(doc.data())
-    })
+    try {
 
-    fastCSV.write(data, {headers: ["appType", "memberType","lastName", "firstName", "dateEnlistCommission", "eas", "felony","dob","phone", "email", "streetAddress", "city", "state", "zipCode"]}).pipe(ws);
+        const lastExportTimestamp = (await formsRef.doc("lastExport").get()).data().timestamp;
+        const snapshot = await formsRef.where("timestamp", ">", lastExportTimestamp).orderBy("timestamp", "desc").get();
+        snapshot.docs.map((doc) => {
+            data.push(doc.data())
+        })
 
+        if (data.length > 0) {
+            try {
+                fastCSV.write(data, {headers: ["appType", "memberType", "lastName", "firstName", "dateEnlistCommission", "eas", "felony", "dob", "phone", "email", "streetAddress", "city", "state", "zipCode"]}).pipe(ws);
+            } catch (error) {
+                return "CSV did not Write !!! " + error
+            }
+            try {
+                await formsRef.doc("lastExport").update({timestamp: snapshot.readTime})
+            } catch (error) {
+                return "LastExport timestamp not updated !!! " + error
+            }
+        }
+    }catch (error){
+        return "Export operation failed " + error
+    }
+    return data.length + " new results in Output Directory"
 }
 
-exportData();
+exportData().then((result) => {console.log(result)});
