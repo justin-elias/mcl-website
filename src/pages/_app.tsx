@@ -3,7 +3,7 @@ import {ThemeProvider} from "@material-ui/core"
 import theme from "../assets/theme";
 import Head from "next/head";
 import * as Sentry from "@sentry/node";
-import {MclAppProps} from "../@types";
+import {MclAppProps} from "../index";
 
 // if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
 //     const config = getConfig()
@@ -38,6 +38,7 @@ export default function App(props: MclAppProps){
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                 />
+                <link href="https://fonts.googleapis.com/css2?family=Asap:wght@600;700&family=Lato:ital,wght@0,400;0,700;1,400&family=Merriweather+Sans:wght@800&display=swap" rel="stylesheet"/>
             </Head>
             <ThemeProvider theme={theme}>
                 <Component {...pageProps} err={err} />
