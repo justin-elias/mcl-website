@@ -7,7 +7,8 @@ import {MclAppProps} from "../index";
 import GridContainer from "../components/GridComponents/GridContainer";
 import GridItem from "../components/GridComponents/GridItem";
 // @ts-ignore
-import ega from "src/assets/images/ega.jpg"
+import ega from "public/images/ega.jpg"
+import Image from "next/image";
 
 const useStyle = makeStyles((theme) => ({
     mainElement: {
@@ -44,7 +45,7 @@ const index = (props: MclAppProps) => {
                         </GridItem>
                         <Hidden smDown>
                             <GridItem>
-                                <img src={ega} width={"450px"} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega}/>
+                                <Image src={ega} width={450} height={337} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega} placeholder={"blur"}/>
                             </GridItem>
                         </Hidden>
                     </GridContainer>
