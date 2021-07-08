@@ -142,7 +142,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "dob",
                         label: "Date of Birth",
                         type: "date",
-                        id: name,
+                        id: "dob",
                         variant: "filled",
                         inputRef: {required: true},
                         margin: "normal",
@@ -157,7 +157,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "mclId",
                         label: "MCL ID # (If known)",
                         type: "text",
-                        id: name,
+                        id: "mclId",
                         variant: "filled",
                         inputRef: {},
                         margin: "normal",
@@ -172,7 +172,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "dateEnlistCommission",
                         label: "Enlisted/Commissioned",
                         type: "date",
-                        id: name,
+                        id: "dateEnlistCommission",
                         variant: "filled",
                         inputRef: {},
                         margin: "normal",
@@ -187,7 +187,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "eas",
                         label: "Discharge Date",
                         type: "date",
-                        id: name,
+                        id: "eas",
                         variant: "filled",
                         inputRef: {},
                         margin: "normal",
@@ -210,7 +210,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "streetAddress",
                         label: "Street Address",
                         type: "text",
-                        id: name,
+                        id: "streetAddress",
                         variant: "filled",
                         inputRef: {required: true},
                         margin: "normal",
@@ -225,7 +225,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "city",
                         label: "City",
                         type: "text",
-                        id: name,
+                        id: "city",
                         variant: "filled",
                         inputRef: {required: true, maxLength: 80},
                         margin: "normal",
@@ -240,7 +240,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "state",
                         label: "State",
                         type: "text",
-                        id: name,
+                        id: "state",
                         variant: "filled",
                         inputRef: {required: true, maxLength: 80},
                         margin: "normal",
@@ -255,7 +255,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "zipCode",
                         label: "Zip Code",
                         type: "text",
-                        id: name,
+                        id: "zipCode",
                         variant: "filled",
                         inputRef: {required: true, pattern: /^\d{5}(?:[-]\d{4})?$/i},
                         margin: "normal",
@@ -270,7 +270,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "email",
                         label: "Email",
                         type: "email",
-                        id: name,
+                        id: "email",
                         variant: "filled",
                         inputRef: {required: true, pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i},
                         margin: "normal",
@@ -285,7 +285,7 @@ const getStepContent: (step: number, appType: string) => formFieldProps[] = (ste
                         name: "phone",
                         label: "Phone",
                         type: "tel",
-                        id: name,
+                        id: "phone",
                         variant: "filled",
                         inputRef: {required: true, maxLength: 12, pattern: /\d?\s?-?\(?(\d){3}\)?\s?-?(\d){3}\s?-?(\d){4}/i},
                         margin: "normal",
@@ -506,42 +506,47 @@ export default function memberships(props:MclAppProps) {
                                 ) : (
                                     <div>
                                         {getStepContent(activeStep, formValues.appType)!.map((formFields: formFieldProps, index: number) => {
-                                            if (formFields.type === "text") {
-                                                return (
-                                                    <TextComponent formFields={formFields} key={index} index={index}
-                                                        // @ts-ignore*/}
-                                                                   register={register} values={formValues}
-                                                                   appType={formValues.appType}/>
-                                                )
-                                            }
-                                            if (formFields.type === "radio") {
-                                                // @ts-ignore
-                                                return formFields.fields.map((field: formRadioFieldProps, index) => {
+                                            try {
+                                                if (formFields.type === "text") {
                                                     return (
-                                                        <RadioComponent key={index} fields={field} register={register}
+                                                        <TextComponent formFields={formFields} key={index} index={index}
                                                             // @ts-ignore*/}
-                                                                        currentValue={formValues[field.groupName]}/>
+                                                                       register={register} values={formValues}
+                                                                       appType={formValues.appType}/>
                                                     )
-                                                })
+                                                }
+                                                if (formFields.type === "radio") {
+                                                    // @ts-ignore
+                                                    return formFields.fields.map((field: formRadioFieldProps, index) => {
+                                                        return (
+                                                            <RadioComponent key={index} fields={field}
+                                                                            register={register}
+                                                                // @ts-ignore*/}
+                                                                            currentValue={formValues[field.groupName]}/>
+                                                        )
+                                                    })
+                                                }
+                                                if (formFields.type === "cert" && formValues.appType === "new") {
+                                                    return <CertComponent register={register} currentValue={""}
+                                                                          certified={formValues.certified}
+                                                                          radioFields={formFields.radio} key={index}/>
+                                                }
+                                                if (formFields.type === "oath" && formValues.appType === "new") {
+                                                    return <OathComponent key={index} register={register}
+                                                                          affirmed={formValues.oath}
+                                                                          memberName={formValues.firstName + " " + formValues.lastName}/>
+                                                }
+                                                if (formFields.type === "submit") {
+                                                    // @ts-ignore
+                                                    return <SubmitComponent formValues={formValues}
+                                                                            title={formFields.title}
+                                                                            key={index}
+                                                                            register={register}/>
+                                                }
+                                                return null
+                                            }catch (error){
+                                                console.log(error)
                                             }
-                                            if (formFields.type === "cert" && formValues.appType === "new") {
-                                                return <CertComponent register={register} currentValue={""}
-                                                                      certified={formValues.certified}
-                                                                      radioFields={formFields.radio} key={index}/>
-                                            }
-                                            if (formFields.type === "oath" && formValues.appType === "new") {
-                                                return <OathComponent key={index} register={register}
-                                                                      affirmed={formValues.oath}
-                                                                      memberName={formValues.firstName + " " + formValues.lastName}/>
-                                            }
-                                            if (formFields.type === "submit") {
-                                                // @ts-ignore
-                                                return <SubmitComponent formValues={formValues}
-                                                                        title={formFields.title}
-                                                                        key={index}
-                                                                        register={register}/>
-                                            }
-                                            return null
                                        })}
                                         <div>
                                             <br/>
