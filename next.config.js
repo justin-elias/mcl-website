@@ -1,9 +1,4 @@
-const withPlugins = require("next-compose-plugins");
-const withImages = require("next-images");
 const path = require("path");
-const withSourceMaps = require('@zeit/next-source-maps')({
-  devtool: 'hidden-source-map'
-});
 
 // Use the SentryWebpack plugin to upload the source maps during build step
 const SentryWebpackPlugin = require('@sentry/webpack-plugin')
@@ -17,14 +12,9 @@ const {
     DEPLOYMENT_ENV
 } = process.env
 
-module.exports = withPlugins([[withImages],[withSourceMaps]], {
+module.exports = {
   webpack(config, options) {
     config.resolve.modules.push(path.resolve("./"));
-    config.node = {
-      fs: "empty",
-      tls: "empty",
-      net: "empty"
-    };
     const { dir } = options
 
     config.module.rules.push(
@@ -84,4 +74,4 @@ module.exports = withPlugins([[withImages],[withSourceMaps]], {
     }
     return config;
   }
-});
+};
