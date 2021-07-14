@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, Container, Typography, Link} from "@material-ui/core";
-import {MclAppProps} from "../../index";
+import {MclAppProps} from "../../@types";
 import {mainElement} from "../../assets/globalStyle";
 
 /* eslint-disable no-unused-vars */

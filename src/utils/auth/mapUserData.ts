@@ -1,4 +1,4 @@
-import {AppUser, FirebaseUser} from "../../index";
+import {AppUser, FirebaseUser} from "../../@types";
 
 interface mapUserProps {
     (user: FirebaseUser): AppUser

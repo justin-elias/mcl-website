@@ -1,5 +1,5 @@
 import React from "react";
-import {SubmitComponentProps} from "../../index";
+import {SubmitComponentProps} from "../../@types";
 import {Typography} from "@material-ui/core";
 import CheckComponent from "./CheckComponent";
 

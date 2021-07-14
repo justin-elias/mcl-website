@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Layout from "../components/Layout";
-import {MclAppProps, formFieldProps, formRadioFieldProps, FormOptions} from "../index";
+import {MclAppProps, formFieldProps, formRadioFieldProps, FormOptions} from "../@types";
 import {
     Button,
     Card,

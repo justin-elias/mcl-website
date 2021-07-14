@@ -3,8 +3,8 @@ import * as Sentry from "@sentry/node";
 import {ReactNode} from "react";
 import firebase from "firebase/app"
 import {TextFieldProps} from "@material-ui/core";
-import {formRadioFieldProps} from "./components/ApplicationFormComponents/RadioComponent";
-import {CertComponentProps} from "./components/ApplicationFormComponents/CertComponent";
+import {formRadioFieldProps} from "../components/ApplicationFormComponents/RadioComponent";
+import {CertComponentProps} from "../components/ApplicationFormComponents/CertComponent";
 
 export interface MclAppProps extends AppProps {
     AppProps: AppProps;

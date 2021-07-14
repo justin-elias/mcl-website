@@ -3,7 +3,7 @@ import {ThemeProvider} from "@material-ui/core"
 import theme from "../assets/theme";
 import Head from "next/head";
 import * as Sentry from "@sentry/node";
-import {MclAppProps} from "../index";
+import {MclAppProps} from "../@types";
 
 // if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
 //     const config = getConfig()

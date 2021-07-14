@@ -5,11 +5,9 @@ import {makeStyles} from "@material-ui/core/styles";
 // @ts-ignore
 import FacebookIcon from "public/images/FindUs-FB-RGB-BRC-Site-500.svg"
 import {container} from "../assets/globalStyle";
-// @ts-ignore
 import Logo from "../../public/images/mclLogo.png";
-// @ts-ignore
 import Hero from "../../public/images/heroImg.jpg"
-import {LayoutProps, MclAppProps} from "../index";
+import {LayoutProps, MclAppProps} from "../@types";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import GridContainer from "./GridComponents/GridContainer";
 import GridItem from "./GridComponents/GridItem";
@@ -116,7 +114,8 @@ const Layout = (props : LayoutProps) => {
     const { children, title, metaDescription, hero } = props
     const classes = useStyle();
 
-    const showHero = hero ? <Image src={Hero} alt={"Close up of Iwo Jima sculpture"} placeholder={"blur"}/> : null;
+    // @ts-ignore
+    const showHero = hero ? <Image src={Hero} alt={"Close up of Iwo Jima sculpture"} className={''} placeholder={"blur"} width={1400} height={417}/> : null;
     return (
     <React.Fragment>
         <Head>
@@ -166,7 +165,7 @@ const Layout = (props : LayoutProps) => {
                 <hr/>
                 <Container className={classes.footer}>
                     <Button href={"https://www.facebook.com/RobertAEllerdDetachment"} className={classes.fbIcon}>
-                        <Image src={FacebookIcon} alt={"Facebook Button"} aria-label={"Facebook Button"} className={classes.fbIcon}/>
+                        <Image src={FacebookIcon} alt={"Facebook Button"} aria-label={"Facebook Button"} className={classes.fbIcon} width={160} height={30}/>
                     </Button>
                 </Container>
             </footer>

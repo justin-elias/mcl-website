@@ -1,6 +1,6 @@
 import React from "react";
 import RadioComponent from "./RadioComponent";
-import {CertComponentProps} from "../../index";
+import {CertComponentProps} from "../../@types";
 import {
     Typography,
 } from "@material-ui/core";

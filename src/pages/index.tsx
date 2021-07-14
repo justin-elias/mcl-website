@@ -3,10 +3,9 @@ import Layout from '../components/Layout'
 import {Button, Container, Hidden, Typography} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles";
 import {container} from "../assets/globalStyle";
-import {MclAppProps} from "../index";
+import {MclAppProps} from "../@types";
 import GridContainer from "../components/GridComponents/GridContainer";
 import GridItem from "../components/GridComponents/GridItem";
-// @ts-ignore
 import ega from "public/images/ega.jpg"
 import Image from "next/image";
 
