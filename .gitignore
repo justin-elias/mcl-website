@@ -39,3 +39,6 @@ yarn-error.log*
 .vercel
 /src/Scripts/ScratchScripts/
 /Output/
+/public/images/mclLogo150.ai
+/public/images/mclLogoBlK.ai
+/public/images/mclLogo.ai
