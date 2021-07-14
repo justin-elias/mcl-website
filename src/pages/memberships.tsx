@@ -488,7 +488,7 @@ export default function memberships(props:MclAppProps) {
                                             The payment window should have opened in a new window. If there are any questions,
                                             please email Justin @ <a href={"mailto:justin@gallatinvalleymcl.org"}>justin@gallatinvalleymcl.org</a>
                                             <br/>
-                                            We hope to see you at our next meeting at 1900 hours on September 15th, 2020 at the Bozeman American Legion
+                                            We hope to see you at our next meeting, 1900 the 3rd Tuesday of each month, at the Bozeman American Legion
                                         </Typography>
                                         <Typography variant={"h6"}>
                                             Meeting Location:
