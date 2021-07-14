@@ -5,7 +5,8 @@ import {makeStyles} from "@material-ui/core/styles";
 // @ts-ignore
 import FacebookIcon from "public/images/FindUs-FB-RGB-BRC-Site-500.svg"
 import {container} from "../assets/globalStyle";
-import Logo from "../../public/images/mclLogo.png";
+import WhiteLogo from "../../public/images/mclLogoWt.png";
+import BlkLogo from "../../public/images/mclLogoBlK.png"
 import Hero from "../../public/images/heroImg.jpg"
 import {LayoutProps, MclAppProps} from "../@types";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -111,11 +112,15 @@ const ScrollTop = (props: MclAppProps) =>{
 }
 
 const Layout = (props : LayoutProps) => {
-    const { children, title, metaDescription, hero } = props
+    const { children, title, metaDescription, hero, whiteLogo } = props
     const classes = useStyle();
 
     // @ts-ignore
     const showHero = hero ? <Image src={Hero} alt={"Close up of Iwo Jima sculpture"} className={''} placeholder={"blur"} width={1400} height={417}/> : null;
+    const showLogo = whiteLogo ?
+        <Image src={WhiteLogo} alt={"Robert A. Ellerd Detachment"} className={classes.logo} width={150} height={175}/> :
+        <Image src={BlkLogo} alt={"Robert A. Ellerd Detachment"} className={classes.logo} width={150} height={175}/>
+
     return (
     <React.Fragment>
         <Head>
@@ -154,7 +159,7 @@ const Layout = (props : LayoutProps) => {
                 </AppBar>
                 </nav>
                 <Button href={"/"} className={classes.logoButton}>
-                    <Image src={Logo} alt={"Robert A. Ellerd Detachment"} className={classes.logo} width={150} height={175}/>
+                    {showLogo}
                 </Button>
             </header>
             <div className={classes.hero}>

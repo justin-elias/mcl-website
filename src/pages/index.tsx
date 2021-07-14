@@ -6,7 +6,7 @@ import {container} from "../assets/globalStyle";
 import {MclAppProps} from "../@types";
 import GridContainer from "../components/GridComponents/GridContainer";
 import GridItem from "../components/GridComponents/GridItem";
-import ega from "public/images/ega.jpg"
+import ega from "../../public/images/ega.jpg"
 import Image from "next/image";
 
 const useStyle = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const index = (props: MclAppProps) => {
 
     return (
         <React.Fragment>
-            <Layout title={"Home | Gallatin Valley MCL"} metaDescription={metaDescription} {...rest} hero>
+            <Layout title={"Home | Gallatin Valley MCL"} metaDescription={metaDescription} {...rest} hero whiteLogo>
 
                 <Container className={classes.mainElement}>
                     <GridContainer justifyContent={"space-between"}>

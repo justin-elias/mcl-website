@@ -33,7 +33,8 @@ export interface FirebaseUser extends firebase.User{
 export interface LayoutProps extends MclAppProps {
     metaDescription: string;
     title: string;
-    hero?: boolean
+    hero?: boolean,
+    whiteLogo?: boolean
 }
 
 export interface FormOptions{
