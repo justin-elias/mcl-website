@@ -20,11 +20,15 @@ import Image from 'next/image'
 const useStyle = makeStyles((theme: Theme) => ({
     main: {
         ...container,
-        position: "absolute"
+        position: "inherit",
+        minHeight: "100vh"
+
     },
     rootContainer: {
+        ...container,
         maxWidth: "1400px",
-        margin: "auto"
+        margin: "auto",
+        position: "relative"
     },
     appBar: {
         display: "flex",
@@ -89,7 +93,7 @@ const useStyle = makeStyles((theme: Theme) => ({
             color: theme.palette.secondary.contrastText
         }
     },
-    container,
+    container
 }))
 
 
@@ -124,7 +128,11 @@ const Layout = (props : LayoutProps) => {
     const classes = useStyle();
 
     // @ts-ignore
-    const showHero = hero ? <Image src={Hero} alt={"Close up of Iwo Jima sculpture"} className={''} placeholder={"blur"} width={1400} height={417}/> : null;
+    const showHero = hero ?
+        <div className={classes.hero}>
+            <Image src={Hero} alt={"Close up of Iwo Jima sculpture"} className={''} placeholder={"blur"} width={1400} height={417}/>
+        </div>
+        : null;
     const showLogo = whiteLogo ?
         <Image src={WhiteLogo} alt={"Robert A. Ellerd Detachment"} className={classes.logo} width={150} height={175}/> :
         <Image src={BlkLogo} alt={"Robert A. Ellerd Detachment"} className={classes.logo} width={150} height={175}/>
@@ -170,9 +178,7 @@ const Layout = (props : LayoutProps) => {
                     {showLogo}
                 </Button>
             </header>
-            <div className={classes.hero}>
             {showHero}
-            </div>
             <main className={classes.main}>
                 {children}
             </main>

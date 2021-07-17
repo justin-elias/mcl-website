@@ -17,7 +17,7 @@ export default function MinutesPage(props: MclAppProps) {
     return (
         <Fragment>
             <Layout title={"Minutes | Gallatin Valley MCL"} {...rest} metaDescription={metaDescription}>
-                <Typography component={"h1"} variant={"h1"} align={"center"}>
+                <Typography component={"h1"} variant={"h3"} align={"center"}>
                     Minutes of Meetings
                 </Typography>
             </Layout>
