@@ -18,6 +18,10 @@ import Typography from "@material-ui/core/Typography";
 import Image from 'next/image'
 
 const useStyle = makeStyles((theme: Theme) => ({
+    main: {
+        ...container,
+        position: "absolute"
+    },
     rootContainer: {
         maxWidth: "1400px",
         margin: "auto"
@@ -45,7 +49,10 @@ const useStyle = makeStyles((theme: Theme) => ({
     footer: {
         ...container,
         width: "100%",
-        margin: "auto"
+        margin: "auto",
+        position:"absolute",
+        bottom:"0",
+        left:"0",
     },
     logoButton: {
         marginTop: "-6.85rem",
@@ -61,6 +68,7 @@ const useStyle = makeStyles((theme: Theme) => ({
     },
 
     hero: {
+        ...container,
         marginTop: "-6.1rem",
         zIndex: -10
     },
@@ -165,10 +173,12 @@ const Layout = (props : LayoutProps) => {
             <div className={classes.hero}>
             {showHero}
             </div>
-            {children}
-            <footer>
+            <main className={classes.main}>
+                {children}
+            </main>
+            <footer className={classes.footer}>
                 <hr/>
-                <Container className={classes.footer}>
+                <Container>
                     <Button href={"https://www.facebook.com/RobertAEllerdDetachment"} className={classes.fbIcon}>
                         <Image src={FacebookIcon} alt={"Facebook Button"} aria-label={"Facebook Button"} className={classes.fbIcon} width={160} height={30}/>
                     </Button>
