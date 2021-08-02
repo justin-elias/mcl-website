@@ -1,0 +1,1 @@
+export {queryCMS} from './queryCMS'
