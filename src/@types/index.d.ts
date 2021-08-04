@@ -17,6 +17,7 @@ export interface MclAppProps extends AppProps {
 
 export interface MinutesPageProps extends MclAppProps {
     minutesQueryResult: any;
+    error: error;
 }
 
 export interface HandleClickParams{

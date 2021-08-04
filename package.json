@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "export": "next export"
+    "export": "next export",
+    "lint": "eslint --fix --no-error-on-unmatched-pattern src/**/*.[js,jsx,ts,tsx]"
+
   },
   "dependencies": {
     "@material-ui/core": "^4.12.1",

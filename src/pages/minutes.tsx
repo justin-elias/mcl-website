@@ -34,12 +34,12 @@ const minutesQuery =   gql`{
     }
 }`
 
-export async function getStaticProps() {
+export function getStaticProps() {
     const endPoint = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT!;
     return request(endPoint, minutesQuery).then((data) => {
         return {props: {minutesQueryResult: data}}
-    }).catch(() => {
-            return {props: {}}
+    }).catch((error) => {
+            return {props: {error: error}}
         }
     )
 }
@@ -47,7 +47,7 @@ export async function getStaticProps() {
 const metaDescription = "A collection of minutes for previous meetings of the Robert A. Ellerd Detachment 1050 of the Marine Corps League"
 export default function MinutesPage(props: MinutesPageProps) {
     const classes = useStyles();
-    const {minutesQueryResult, ...rest} = props
+    const {minutesQueryResult, error, ...rest} = props
 
     const formatDate = (dateString: string) => {
         return moment(new Date(dateString)).format("LL")
@@ -65,6 +65,7 @@ export default function MinutesPage(props: MinutesPageProps) {
         })
         }else {
             list.push(<Typography align="center" variant="body1">Files not Returned</Typography>)
+            list.push(<Typography align="center" variant="body1">{error.toString()}</Typography>)
         }
         return list
     }
