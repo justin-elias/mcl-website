@@ -13,7 +13,11 @@ export interface MclAppProps extends AppProps {
     user?: AppUser;
     logout?: firebase.auth.Auth;
     preview?: boolean;
+}
 
+export interface MinutesPageProps extends MclAppProps {
+    minutesQueryResult: any;
+    error: error;
 }
 
 export interface HandleClickParams{
