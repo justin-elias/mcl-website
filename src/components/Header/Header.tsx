@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
         height: "5.625rem"
     },
     grid: {
-        width: "100%"
+        width: "95%"
+
     },
     navLink: {
         fontWeight: 700,
