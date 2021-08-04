@@ -33,7 +33,6 @@
   "devDependencies": {
     "@sentry/node": "^6.9.0",
     "@sentry/webpack-plugin": "^1.16.0",
-    "@types/classnames": "^2.3.1",
     "@types/material-ui": "^0.21.9",
     "@types/node": "^16.3.2",
     "@types/react": "^17.0.14",
