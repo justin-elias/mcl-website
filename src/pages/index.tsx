@@ -21,7 +21,7 @@ const useStyle = makeStyles((theme) => ({
 }))
 const gKey = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJuZCKzltERVMRTCZ7l1uTG_8&key=" + process.env.NEXT_PUBLIC_MAPS_API;
 const metaDescription = "Welcome to the Robert A. Ellerd Detachment of the Marine Corps League."
-const index = (props: MclAppProps) => {
+const Index = (props: MclAppProps) => {
     const classes = useStyle();
     const { ...rest } = props
 
@@ -117,4 +117,4 @@ const index = (props: MclAppProps) => {
     );
 }
 
-export default index;
+export default Index;

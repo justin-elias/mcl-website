@@ -372,7 +372,7 @@ const defaultFormValues: FormOptions = {
     subscribe: true
 }
 
-export default function memberships(props:MclAppProps) {
+export default function Memberships(props:MclAppProps) {
     const classes = useStyles();
     const {user, ...rest} = props;
     const [activeStep, setActiveStep] = useState(0);
@@ -439,6 +439,7 @@ export default function memberships(props:MclAppProps) {
         setActiveStep(0);
     };
 
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         if (formValues.appType === "new"){
             setSteps(getSteps("new"))
@@ -451,6 +452,7 @@ export default function memberships(props:MclAppProps) {
             formValues.certified = true;
         }
     }, [formValues.appType])
+    /* eslint-enable react-hooks/exhaustive-deps */
     return (
         <React.Fragment>
                 <Layout title={"Join-Renew | Gallatin Valley MCL"} {...rest} metaDescription={metaDescription}>
