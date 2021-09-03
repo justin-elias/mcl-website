@@ -421,7 +421,6 @@ export default function Memberships(props:MclAppProps) {
             }
         }
         await saveFormValues(data)
-        console.log(formValues)
     };
 
     const handleBack = () => {
@@ -547,7 +546,7 @@ export default function Memberships(props:MclAppProps) {
                                                 }
                                                 return null
                                             }catch (error){
-                                                console.log(error)
+                                                Sentry.captureException(error);
                                             }
                                        })}
                                         <div>
