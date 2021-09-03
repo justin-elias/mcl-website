@@ -22,6 +22,6 @@ export default async function sendForm(formValues: { lastName: string; zipCode: 
             .collection('forms').add(formValues)
     }
     catch (error){
-        Sentry.captureException(error)
+       Sentry.captureException(error)
     }
 }

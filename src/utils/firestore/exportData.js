@@ -10,7 +10,7 @@ const month = date_ob.getMonth()+1;
 const hours = date_ob.getHours();
 const minutes = date_ob.getMinutes();
 const timestamp = year + "-" + month + "-" + date + "_" + hours + ":" + minutes + "_"
-const ws = fs.createWriteStream("Output/" + timestamp + "membershipUpdates.csv");
+const ws = fs.createWriteStream("../../../Output/" + timestamp + "membershipUpdates.csv");
 
 const serviceAccount = require("../../../../GoogleKeys/mcl-det-1050-firebase-adminsdk-nlupy-7ca4390c79.json");
 
