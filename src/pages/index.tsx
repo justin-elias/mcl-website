@@ -43,7 +43,7 @@ const Index = (props: MclAppProps) => {
                                 <Typography variant="body1" align={"left"}><strong>When:</strong> November 13, 2021 @ 1900</Typography>
                                 <Typography variant="body1" align={"left"}><strong>Where:</strong> <a href={"https://www.bwpbozeman.com"} rel={"noopener"}>Best Western Grantree</a><br/>    1325 North 7th Avenue<br/>  Bozeman, Mt 59715</Typography>
                                 <br/>
-                                <Button color={"primary"} href={"/memberships"} size={"large"} variant={"contained"}>Buy Tickets</Button>
+                                <Button color={"primary"} href={"https://www.eventbrite.com/e/2021-marine-corps-ball-tickets-169659613471?aff=ebdsoporgprofile"} size={"large"} variant={"contained"}>Buy Tickets</Button>
                                 <br/>
                             </GridItem>
                             <Hidden smDown>
