@@ -7,7 +7,6 @@ import {MclAppProps} from "../@types";
 import GridContainer from "../components/GridComponents/GridContainer";
 import GridItem from "../components/GridComponents/GridItem";
 import ega from "../../public/images/ega.jpg"
-import ball from "../../public/images/ballPhoto.jpg"
 import Image from "next/image";
 
 const useStyle = makeStyles((theme) => ({
@@ -50,11 +49,11 @@ const Index = (props: MclAppProps) => {
                                 <br/>
                                 <Button color={"primary"} href={"/memberships"} size={"large"} variant={"contained"}>Join Us</Button>
                             </GridItem>
-                            {/*<Hidden smDown>*/}
-                            {/*    <GridItem>*/}
-                            {/*        <Image src={ega} width={450} height={337} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega} placeholder={"blur"}/>*/}
-                            {/*    </GridItem>*/}
-                            {/*</Hidden>*/}
+                            <Hidden smDown>
+                                <GridItem>
+                                    <Image src={ega} width={450} height={337} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega} placeholder={"blur"}/>
+                                </GridItem>
+                            </Hidden>
                         </GridContainer>
                         <br/>
                         <GridContainer justifyContent={"center"} spacing={6}>
