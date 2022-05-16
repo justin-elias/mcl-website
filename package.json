@@ -22,7 +22,7 @@
     "graphql-request": "^3.5.0",
     "graphql-tag": "^2.12.5",
     "js-cookie": "^3.0.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "next": "^11.0.1",
     "npm-check-updates": "^11.8.3",
     "react": "^17.0.2",
