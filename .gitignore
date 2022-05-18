@@ -42,3 +42,4 @@ yarn-error.log*
 /public/images/mclLogo150.ai
 /public/images/mclLogoBlK.ai
 /public/images/mclLogo.ai
+/src/utils/firestore/mcl-det-1050-firebase-adminsdk-nlupy-7ca4390c79.json

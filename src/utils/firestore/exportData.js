@@ -12,7 +12,7 @@ const minutes = date_ob.getMinutes();
 const outputTimestamp = year + "-" + month + "-" + date + "_" + hours + ":" + minutes + "_"
 const ws = fs.createWriteStream("../../../Output/" + outputTimestamp + "membershipUpdates.csv");
 
-const serviceAccount = require("../../../../GoogleKeys/mcl-det-1050-firebase-adminsdk-nlupy-7ca4390c79.json");
+const serviceAccount = require("./mcl-det-1050-firebase-adminsdk-nlupy-7ca4390c79.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
