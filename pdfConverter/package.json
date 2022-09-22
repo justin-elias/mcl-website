@@ -1,0 +1,17 @@
+{
+  "name": "pdfconverter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fillPdf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node fillPdf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^6.2.0",
+    "csvtojson": "^2.0.10",
+    "pdffiller": "^0.0.11"
+  }
+}
