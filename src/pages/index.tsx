@@ -33,8 +33,20 @@ const Index = (props: MclAppProps) => {
                     <Layout title={"Home | Gallatin Valley MCL"} metaDescription={metaDescription} {...rest} hero whiteLogo>
                     <Container className={classes.mainElement}>
                         <GridContainer justifyContent={"space-between"}>
+                            <GridItem md={12} className={classes.gridItem}>
+                                <Typography variant="h2" align={"left"} component={"h2"}>2022 Marine Corps Ball</Typography>
+                                <Typography variant="body1" align={"left"}>
+                                    Join the Robert A. Ellerd Detachment of the Marine Corps League in celebrating the 247th Marine Corps Birthday on Nov 12, 2022 at the Best Western Grand Tree Hotel
+                                </Typography>
+                                <br/>
+                                <Typography variant="body1" align={"left"}><strong>When:</strong> November 12, 2022 @ 1500</Typography>
+                                <Typography variant="body1" align={"left"}><strong>Where:</strong> <a href={"https://www.bwpbozeman.com"} rel={"noopener"}>Best Western Grantree</a><br/>    1325 North 7th Avenue<br/>  Bozeman, Mt 59715</Typography>
+                                <br/>
+                                <Button color={"primary"} href={"https://www.eventbrite.com/e/2022-marine-corps-ball-tickets-441369075787"} size={"large"} variant={"contained"}>Buy Tickets</Button>
+                                <br/>
+                            </GridItem>
                             <Hidden smDown>
-                                <GridItem>
+                                <GridItem className={classes.gridItem}>
                                     <Image src={ega} width={450} height={337} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega} placeholder={"blur"}/>
                                 </GridItem>
                             </Hidden>
@@ -49,15 +61,10 @@ const Index = (props: MclAppProps) => {
                                 <br/>
                                 <Button color={"primary"} href={"/memberships"} size={"large"} variant={"contained"}>Join Us</Button>
                             </GridItem>
-                            <Hidden smDown>
-                                <GridItem>
-                                    <Image src={ega} width={450} height={337} alt={"Eagle, Globe, and Anchor on an American Flag"} className={classes.ega} placeholder={"blur"}/>
-                                </GridItem>
-                            </Hidden>
                         </GridContainer>
                         <br/>
                         <GridContainer justifyContent={"center"} spacing={6}>
-                            <GridItem>
+                            <GridItem className={classes.gridItem}>
                                 <Typography variant={"h3"}>Meeting Info</Typography>
                                 <br/>
                                 <Typography variant={"body1"}>
@@ -68,7 +75,7 @@ const Index = (props: MclAppProps) => {
                                     Bozeman, Mt 59715
                                 </Typography>
                             </GridItem>
-                            <GridItem>
+                            <GridItem className={classes.gridItem}>
                                 <iframe width="450" height="450" frameBorder="0" style={{border:0}}
                                         src={gKey}
                                         allowFullScreen/>
