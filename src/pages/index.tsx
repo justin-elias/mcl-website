@@ -39,7 +39,7 @@ const Index = (props: MclAppProps) => {
                                     Join the Robert A. Ellerd Detachment of the Marine Corps League in celebrating the 247th Marine Corps Birthday on Nov 12, 2022 at the Best Western Grand Tree Hotel
                                 </Typography>
                                 <br/>
-                                <Typography variant="body1" align={"left"}><strong>When:</strong> November 12, 2022 @ 1500</Typography>
+                                <Typography variant="body1" align={"left"}><strong>When:</strong> November 12, 2022 @ 1700</Typography>
                                 <Typography variant="body1" align={"left"}><strong>Where:</strong> <a href={"https://www.bwpbozeman.com"} rel={"noopener"}>Best Western Grantree</a><br/>    1325 North 7th Avenue<br/>  Bozeman, Mt 59715</Typography>
                                 <br/>
                                 <Button color={"primary"} href={"https://www.eventbrite.com/e/2022-marine-corps-ball-tickets-441369075787"} size={"large"} variant={"contained"}>Buy Tickets</Button>
