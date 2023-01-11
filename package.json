@@ -18,7 +18,7 @@
     "caniuse-lite": "^1.0.30001442",
     "fast-csv": "^4.3.6",
     "firebase": "^8.7.1",
-    "firebase-admin": "^9.11.0",
+    "firebase-admin": "^11.4.1",
     "graphql": "^15.5.1",
     "graphql-request": "^3.5.0",
     "graphql-tag": "^2.12.5",
