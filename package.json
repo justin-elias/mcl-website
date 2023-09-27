@@ -15,7 +15,6 @@
     "@material-ui/styles": "^4.11.4",
     "@sentry/integrations": "^6.9.0",
     "@sentry/react": "^6.9.0",
-    "caniuse-lite": "^1.0.30001442",
     "fast-csv": "^4.3.6",
     "firebase": "^8.7.1",
     "firebase-admin": "^9.11.0",
