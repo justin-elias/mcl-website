@@ -44,7 +44,7 @@ const Index = (props: MclAppProps) => {
           <GridContainer justifyContent={"space-between"}>
             <GridItem md={12} className={classes.gridItem}>
               <Typography variant="h2" align={"left"} component={"h2"}>
-                2022 Marine Corps Ball
+                2023 Marine Corps Ball
               </Typography>
               <Typography variant="body1" align={"left"}>
                 Join the Robert A. Ellerd Detachment of the Marine Corps League
