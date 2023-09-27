@@ -48,12 +48,12 @@ const Index = (props: MclAppProps) => {
               </Typography>
               <Typography variant="body1" align={"left"}>
                 Join the Robert A. Ellerd Detachment of the Marine Corps League
-                in celebrating the 247th Marine Corps Birthday on Nov 12, 2022
+                in celebrating the 248th Marine Corps Birthday on Nov 11, 2023
                 at the Best Western Grand Tree Hotel
               </Typography>
               <br />
               <Typography variant="body1" align={"left"}>
-                <strong>When:</strong> November 12, 2022 @ 1700
+                <strong>When:</strong> November 11, 2023 @ 1700
               </Typography>
               <Typography variant="body1" align={"left"}>
                 <strong>Where:</strong>{" "}
