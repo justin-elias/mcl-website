@@ -44,16 +44,16 @@ const Index = (props: MclAppProps) => {
           <GridContainer justifyContent={"space-between"}>
             <GridItem md={12} className={classes.gridItem}>
               <Typography variant="h2" align={"left"} component={"h2"}>
-                2023 Marine Corps Ball
+                2024 Marine Corps Ball
               </Typography>
               <Typography variant="body1" align={"left"}>
                 Join the Robert A. Ellerd Detachment of the Marine Corps League
-                in celebrating the 248th Marine Corps Birthday on Nov 11, 2023
+                in celebrating the 249th Marine Corps Birthday on Nov 09, 2024
                 at the Best Western Grand Tree Hotel
               </Typography>
               <br />
               <Typography variant="body1" align={"left"}>
-                <strong>When:</strong> November 11, 2023 @ 1700
+                <strong>When:</strong> November 09, 2024 @ 1700
               </Typography>
               <Typography variant="body1" align={"left"}>
                 <strong>Where:</strong>{" "}
@@ -67,7 +67,7 @@ const Index = (props: MclAppProps) => {
               <Button
                 color={"primary"}
                 href={
-                  "https://www.eventbrite.com/e/2023-marine-corps-ball-tickets-727101328647"
+                  "https://www.eventbrite.com/e/2024-marine-corps-ball-tickets-1020198169187"
                 }
                 size={"large"}
                 variant={"contained"}
