@@ -42,6 +42,7 @@ const Index = (props: MclAppProps) => {
       >
         <Container className={classes.mainElement}>
           <GridContainer justifyContent={"space-between"}>
+                        <Hidden>
             <GridItem md={12} className={classes.gridItem}>
               <Typography variant="h2" align={"left"} component={"h2"}>
                 2024 Marine Corps Ball
@@ -76,6 +77,7 @@ const Index = (props: MclAppProps) => {
               </Button>
               <br />
             </GridItem>
+                        </Hidden>
             <Hidden smDown>
               <GridItem className={classes.gridItem}>
                 <Image
