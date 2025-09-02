@@ -42,6 +42,7 @@ const Index = (props: MclAppProps) => {
       >
         <Container className={classes.mainElement}>
           <GridContainer justifyContent={"space-between"}>
+                        <Hidden>
             <GridItem md={12} className={classes.gridItem}>
               <Typography variant="h2" align={"left"} component={"h2"}>
                 2025 Marine Corps Ball
@@ -79,7 +80,7 @@ const Index = (props: MclAppProps) => {
               <Button
                 color={"primary"}
                 href={
-                  "https://www.eventbrite.com/e/2025-marine-corps-ball-tickets-1653452343469?aff=oddtdtcreator"
+                  "https://www.eventbrite.com/e/2025-marine-corps-ball-tickets-1653452343469"
                 }
                 size={"large"}
                 variant={"contained"}
@@ -88,6 +89,7 @@ const Index = (props: MclAppProps) => {
               </Button>
               <br />
             </GridItem>
+                        </Hidden>
             <Hidden smDown>
               <GridItem className={classes.gridItem}>
                 <Image
