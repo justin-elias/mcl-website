@@ -45,16 +45,28 @@ const Index = (props: MclAppProps) => {
                         <Hidden>
             <GridItem md={12} className={classes.gridItem}>
               <Typography variant="h2" align={"left"} component={"h2"}>
-                2024 Marine Corps Ball
+                2025 Marine Corps Ball
               </Typography>
               <Typography variant="body1" align={"left"}>
                 Join the Robert A. Ellerd Detachment of the Marine Corps League
-                in celebrating the 249th Marine Corps Birthday on Nov 09, 2024
-                at the Best Western Grand Tree Hotel
+                in celebrating the 250th Marine Corps Birthday on Nov 8, 2025 at
+                the Best Western Grand Tree Hotel
               </Typography>
               <br />
               <Typography variant="body1" align={"left"}>
-                <strong>When:</strong> November 09, 2024 @ 1700
+                <strong>Schedule of Events on November 8th:</strong>
+                <ul>
+                  <li>1700 - Doors Open</li>
+                  <li>1730 -1830 Cocktail Hour</li>
+                  <li>
+                    <strong>1830 Ceremony Begins </strong>
+                  </li>
+                  <li>1900 - 2000 Dinner and Guest Speaker</li>
+                  <li>
+                    2000 - 2030 Cake and Message from the Commandant 2030 - 2300
+                    Music and Dancing
+                  </li>
+                </ul>
               </Typography>
               <Typography variant="body1" align={"left"}>
                 <strong>Where:</strong>{" "}
@@ -68,7 +80,7 @@ const Index = (props: MclAppProps) => {
               <Button
                 color={"primary"}
                 href={
-                  "https://www.eventbrite.com/e/2024-marine-corps-ball-tickets-1020198169187"
+                  "https://www.eventbrite.com/e/2025-marine-corps-ball-tickets-1653452343469"
                 }
                 size={"large"}
                 variant={"contained"}
@@ -86,7 +98,6 @@ const Index = (props: MclAppProps) => {
                   height={337}
                   alt={"Eagle, Globe, and Anchor on an American Flag"}
                   className={classes.ega}
-                  placeholder={"blur"}
                 />
               </GridItem>
             </Hidden>
