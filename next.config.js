@@ -13,7 +13,12 @@ const {
 } = process.env;
 
 module.exports = {
-  images: { unoptimized: true, disableStaticImages: true },
+  images: {
+    unoptimized: true,
+    disableStaticImages: true,
+    loader: "akamai",
+    path: "",
+  },
   webpack(config, options) {
     // if (config.output) config.output.hashFunction = "xxhash64";
     config.resolve.modules.push(path.resolve("./"));

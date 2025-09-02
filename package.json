@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_OPTIONS=--openssl-legacy-provider next",
-    "build": "next build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider next build",
     "export": "next export",
     "lint": "eslint --fix --no-error-on-unmatched-pattern src/**/*.[js,jsx,ts,tsx]"
   },
