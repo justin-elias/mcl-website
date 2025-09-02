@@ -4,7 +4,7 @@
   "description": "Robert A. Ellerd Detachment of the Marine Corps League official website",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider next",
     "build": "next build",
     "export": "next export",
     "lint": "eslint --fix --no-error-on-unmatched-pattern src/**/*.[js,jsx,ts,tsx]"
@@ -30,6 +30,7 @@
     "react-hook-form": "^6.3.2",
     "react-imask": "^6.1.0",
     "react-pdf": "^5.3.2",
+    "sharp": "^0.34.3",
     "vercel": "^23.0.1"
   },
   "devDependencies": {
